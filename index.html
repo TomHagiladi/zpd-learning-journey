@@ -162,7 +162,16 @@
       .stepper .s-dot.done{background:var(--teal); border-color:var(--teal); color:#fff;}
       .stepper .s-dot.now{border-color:var(--coral); color:var(--coral-700); background:var(--coral-50);}
       .stepper .s-line{width:14px; border-top:2px dashed var(--sand); flex:none;}
-      .stepper .s-name{margin-inline-start:.55rem; font-size:.95rem; font-weight:700; color:var(--teal-700); white-space:nowrap;}
+      .stepper .s-name{
+        margin-inline-start:.55rem; font-size:.95rem; font-weight:700; color:var(--teal-700);
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex-shrink:1;
+      }
+    }
+    @media (max-width:430px){
+      .stepper{gap:.25rem; padding:.5rem .55rem;}
+      .stepper .s-dot{width:26px; height:26px; font-size:.78rem; border-width:2px;}
+      .stepper .s-line{width:9px;}
+      .stepper .s-name{font-size:.85rem; margin-inline-start:.4rem;}
     }
 
     /* ===== Screens ===== */
