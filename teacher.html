@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0F5257">
-  <title>לוח המנחה · מסע למידה ZPD · מפגש 4</title>
+  <title>דשבורד המנחה · מסע למידה ZPD · מפגש 4</title>
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23C75B39'/%3E%3Cpath d='M18 44 Q26 36 22 28 T34 18' fill='none' stroke='%23FAF6EE' stroke-width='4' stroke-dasharray='2 6' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='20' r='7' fill='%230F5257'/%3E%3C/svg%3E">
 
@@ -19,15 +19,17 @@
       --teal:#0F5257; --teal-700:#0A3D41; --teal-50:#E4EFEF;
       --coral:#C75B39; --coral-700:#A8492C; --coral-50:#FBEFE9;
       --sand:#E7D8C0; --line:#E7DFD0; --focus:#B04A00;
+      --ok:#2E7D46; --ok-50:#EAF4EC;
       --radius:16px;
       --shadow-sm:0 1px 2px rgba(30,43,51,.06), 0 4px 14px rgba(30,43,51,.05);
       --font-display:'Frank Ruhl Libre','Times New Roman',serif;
       --font-body:'Assistant','Segoe UI','Arial Hebrew',Arial,sans-serif;
     }
     *,*::before,*::after{box-sizing:border-box;}
+    html{font-size:19px;}
     body{
       margin:0; font-family:var(--font-body); background:var(--cream); color:var(--ink);
-      line-height:1.65; font-size:18px;
+      line-height:1.65; font-size:1rem;
     }
     h1,h2,h3{margin:0; line-height:1.25;}
     button{font-family:inherit; cursor:pointer;}
@@ -35,38 +37,44 @@
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
     .skip-link{position:absolute;top:-100%;right:0;background:var(--teal);color:#fff;padding:.75rem 1.5rem;font-weight:700;z-index:300;text-decoration:none;border-radius:0 0 0 10px;}
     .skip-link:focus{top:0;outline:3px solid var(--focus);outline-offset:2px;}
-    a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px;}
+    a:focus-visible,button:focus-visible,[tabindex]:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px;}
 
     header{
       background:linear-gradient(180deg,var(--teal),var(--teal-700)); color:#fff;
-      padding:1.1rem clamp(1rem,4vw,2.4rem);
+      padding:1rem clamp(1rem,4vw,2.4rem);
       display:flex; flex-wrap:wrap; align-items:center; gap:.8rem 1.4rem;
     }
     header h1{font-size:clamp(1.15rem,2.6vw,1.5rem); font-weight:800;}
-    header .sub{color:#CDE2E1; font-size:.9rem; font-weight:700;}
-    .counts{display:flex; gap:.6rem; margin-inline-start:auto; flex-wrap:wrap;}
+    header .sub{color:#CDE2E1; font-size:.92rem; font-weight:700;}
+    .head-actions{display:flex; gap:.6rem; margin-inline-start:auto; flex-wrap:wrap; align-items:center;}
     .count-chip{
       background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.28);
       color:#fff; border-radius:999px; padding:.25rem .9rem; font-weight:800; font-size:.95rem;
     }
-    .fs-btn{
+    .hbtn{
       background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.28); color:#fff;
-      border-radius:999px; padding:.35rem 1rem; font-weight:800; font-size:.9rem; min-height:44px;
+      border-radius:999px; padding:.4rem 1.05rem; font-weight:800; font-size:.92rem; min-height:44px;
     }
-    .fs-btn:hover{background:rgba(255,255,255,.25);}
+    .hbtn:hover{background:rgba(255,255,255,.25);}
+    .hbtn.danger{background:rgba(158,43,18,.55); border-color:#F3B3A0;}
+    .hbtn.danger:hover{background:#9E2B12;}
 
-    .wrap{max-width:1240px; margin-inline:auto; padding:1.4rem clamp(1rem,4vw,2.4rem) 4rem;}
+    .wrap{max-width:1280px; margin-inline:auto; padding:1.3rem clamp(1rem,4vw,2.4rem) 4rem;}
 
-    .tabs{display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.2rem; align-items:center;}
+    .tabs{display:flex; gap:.55rem; flex-wrap:wrap; margin-bottom:1.1rem; align-items:center;}
     .tab{
       border:2px solid var(--teal); background:var(--surface); color:var(--teal-700);
-      border-radius:999px; padding:.5rem 1.4rem; font-size:1.05rem; font-weight:800; min-height:48px;
+      border-radius:999px; padding:.5rem 1.25rem; font-size:1.05rem; font-weight:800; min-height:48px;
     }
     .tab[aria-selected="true"]{background:var(--teal); color:#fff;}
     .tab:hover{box-shadow:var(--shadow-sm);}
+    .tab .badge{
+      display:inline-block; min-width:1.6em; padding:0 .45em; margin-inline-start:.35em;
+      background:var(--coral); color:#fff; border-radius:999px; font-size:.85em;
+    }
     .test-toggle{
       display:inline-flex; align-items:center; gap:.45rem; margin-inline-start:auto;
-      color:var(--ink-soft); font-size:.9rem; font-weight:700; cursor:pointer; min-height:44px;
+      color:var(--ink-soft); font-size:.92rem; font-weight:700; cursor:pointer; min-height:44px;
     }
     .test-toggle input{width:20px; height:20px; accent-color:var(--coral);}
 
@@ -75,36 +83,79 @@
       border-radius:12px; padding:.8rem 1.1rem; margin:0 0 1rem; font-weight:700; display:none;
     }
     .banner.show{display:block;}
+    .banner.good{background:var(--ok-50); border-color:#CBE3D1; border-right-color:var(--ok); color:var(--ok);}
 
-    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:1rem;}
+    /* progress tab */
+    .stage-summary{display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1.1rem;}
+    .stage-sum{
+      background:var(--surface); border:2px solid var(--line); border-radius:14px;
+      padding:.5rem 1rem; font-weight:800; color:var(--ink-soft); font-size:.98rem;
+    }
+    .stage-sum b{color:var(--teal-700); font-size:1.25rem; margin-inline-start:.35rem;}
+    .p-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:.9rem;}
+    .p-card{
+      background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+      padding:1rem 1.15rem; box-shadow:var(--shadow-sm);
+      display:flex; flex-direction:column; gap:.45rem;
+    }
+    .p-card .p-top{display:flex; align-items:center; gap:.7rem; flex-wrap:wrap;}
+    .p-card .name{
+      font-family:var(--font-display); font-weight:900; color:var(--teal-700); font-size:1.3rem;
+    }
+    .stage-chip{
+      display:inline-block; border-radius:999px; padding:.14rem .85rem;
+      font-weight:800; font-size:.95rem;
+      background:var(--teal-50); color:var(--teal-700); border:1px solid #D2E4E3;
+    }
+    .stage-chip.s5{background:var(--ok-50); color:var(--ok); border-color:#CBE3D1;}
+    .stage-chip.s0{background:var(--cream); color:var(--ink-soft); border-color:var(--sand);}
+    .p-meta{display:flex; gap:.9rem; flex-wrap:wrap; color:var(--ink-soft); font-size:.95rem; font-weight:700;}
+    .art{opacity:.35;}
+    .art.on{opacity:1;}
+
+    /* generic item cards */
+    .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1rem;}
     .item{
       background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
       padding:1.1rem 1.2rem; box-shadow:var(--shadow-sm);
       display:flex; flex-direction:column; gap:.5rem;
-      break-inside:avoid;
     }
-    .item .who{
-      display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap;
-    }
-    .item .name{
-      font-family:var(--font-display); font-weight:900; color:var(--teal-700); font-size:1.25rem;
-    }
-    .item .when{color:#6B7A82; font-size:.83rem; font-weight:700;}
+    .item .who{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap;}
+    .item .name{font-family:var(--font-display); font-weight:900; color:var(--teal-700); font-size:1.3rem;}
+    .item .when{color:#6B7A82; font-size:.88rem; font-weight:700;}
     .item .tags{display:flex; gap:.4rem; flex-wrap:wrap;}
     .tag{
       background:var(--teal-50); border:1px solid #D2E4E3; color:var(--teal-700);
-      border-radius:999px; padding:.08rem .7rem; font-size:.83rem; font-weight:800;
+      border-radius:999px; padding:.08rem .7rem; font-size:.88rem; font-weight:800;
     }
     .tag.warm{background:var(--coral-50); border-color:#EFD6CA; color:var(--coral-700);}
-    .item .txt{white-space:pre-wrap; word-break:break-word; font-size:1.02rem;}
+    .item .txt{white-space:pre-wrap; word-break:break-word; font-size:1.04rem;}
+    .item .sub-label{font-weight:800; color:var(--coral-700); font-size:.95rem; margin-top:.3rem;}
     .item a.file-link{color:var(--teal-700); font-weight:800; word-break:break-all;}
     .empty{
-      text-align:center; color:var(--ink-soft); padding:3.5rem 1rem;
+      text-align:center; color:var(--ink-soft); padding:3.2rem 1rem;
       border:2px dashed var(--sand); border-radius:var(--radius); font-size:1.1rem;
     }
+
+    /* questions tab */
+    .q-stat{margin:1rem 0;}
+    .q-stat .q-text{font-weight:700; margin-bottom:.35rem;}
+    .q-bar-track{
+      background:var(--surface); border:1px solid var(--line); border-radius:999px;
+      height:2.1rem; position:relative; overflow:hidden;
+    }
+    .q-bar{
+      position:absolute; inset:0 0 0 auto; background:var(--teal); border-radius:999px;
+      min-width:2.4rem;
+      display:flex; align-items:center; justify-content:flex-start; padding-inline:1rem;
+      color:#fff; font-weight:800; font-size:1rem;
+      transition:width .4s ease;
+    }
+    .pair-stats{margin-top:1.4rem; font-weight:800; color:var(--ink-soft);}
+
     footer{
-      max-width:1240px; margin-inline:auto; padding:1rem clamp(1rem,4vw,2.4rem) 2rem;
-      color:var(--ink-soft); font-size:.9rem; border-top:1px solid var(--line);
+      max-width:1280px; margin-inline:auto; padding:1rem clamp(1rem,4vw,2.4rem) 2rem;
+      color:var(--ink-soft); font-size:.92rem; border-top:1px solid var(--line);
       display:flex; gap:1.4rem; flex-wrap:wrap;
     }
     footer a{color:var(--teal-700); font-weight:700;}
@@ -116,9 +167,9 @@
       }
     }
     @media print{
-      header .counts, .fs-btn, .tabs, footer{display:none;}
+      header .head-actions, .tabs, footer{display:none;}
       body{background:#fff;}
-      .item{box-shadow:none;}
+      .item,.p-card{box-shadow:none;}
     }
   </style>
 </head>
@@ -127,54 +178,95 @@
 
 <header>
   <div>
-    <h1>לוח המנחה · מסע למידה: אזור ההתפתחות המקורב</h1>
+    <h1>דשבורד המנחה · מסע למידה: אזור ההתפתחות המקורב</h1>
     <p class="sub">מפגש 4 · הפקולטה למקצועות הבריאות · מתעדכן בזמן אמת</p>
   </div>
-  <div class="counts">
-    <span class="count-chip" id="count-products">0 תוצרים</span>
-    <span class="count-chip" id="count-takeaways">0 פסקאות</span>
-    <button class="fs-btn" id="fs-btn">⛶ מסך מלא</button>
+  <div class="head-actions">
+    <span class="count-chip" id="count-participants">0 משתתפות</span>
+    <button class="hbtn" id="csv-btn">⬇ הורדת הנתונים (CSV)</button>
+    <button class="hbtn" id="fs-btn">⛶ מסך מלא</button>
+    <button class="hbtn danger" id="board-reset-btn">🗑 איפוס הלוח</button>
   </div>
 </header>
 
 <main id="main-content" class="wrap">
 
-  <div class="tabs" role="tablist" aria-label="סוגי הגשות">
-    <button class="tab" role="tab" id="tab-products" aria-selected="true" aria-controls="panel-products">🎁 תוצרים אישיים</button>
-    <button class="tab" role="tab" id="tab-takeaways" aria-selected="false" aria-controls="panel-takeaways">💬 פסקאות מהדיון</button>
+  <div class="tabs" role="tablist" aria-label="תצוגות הדשבורד">
+    <button class="tab" role="tab" id="tab-progress" aria-selected="true" aria-controls="panel-progress">🧭 התקדמות</button>
+    <button class="tab" role="tab" id="tab-reflections" aria-selected="false" aria-controls="panel-reflections">📝 עיבוד אישי<span class="badge" id="b-reflections">0</span></button>
+    <button class="tab" role="tab" id="tab-takeaways" aria-selected="false" aria-controls="panel-takeaways">💬 פסקאות<span class="badge" id="b-takeaways">0</span></button>
+    <button class="tab" role="tab" id="tab-products" aria-selected="false" aria-controls="panel-products">🎁 תוצרים<span class="badge" id="b-products">0</span></button>
+    <button class="tab" role="tab" id="tab-questions" aria-selected="false" aria-controls="panel-questions">📊 שאלות הדיון</button>
     <label class="test-toggle"><input type="checkbox" id="show-tests"> הצגת רשומות בדיקה</label>
   </div>
 
   <p class="banner" id="conn-banner" role="alert">לא ניתן להתחבר כרגע למסד הנתונים. בדקו את חיבור האינטרנט ורעננו.</p>
+  <p class="banner good" id="reset-banner" role="status">הלוח אופס ✓ — רשומות חדשות יופיעו כרגיל מרגע זה.</p>
 
-  <section id="panel-products" role="tabpanel" aria-labelledby="tab-products">
-    <h2 class="sr-only">תוצרים אישיים</h2>
-    <div class="grid" id="grid-products"></div>
-    <p class="empty" id="empty-products">עדיין אין תוצרים — הם יופיעו כאן ברגע שיישלחו 🙂</p>
+  <!-- Progress -->
+  <section id="panel-progress" role="tabpanel" aria-labelledby="tab-progress">
+    <h2 class="sr-only">התקדמות המשתתפות</h2>
+    <div class="stage-summary" id="stage-summary"></div>
+    <div class="p-grid" id="p-grid"></div>
+    <p class="empty" id="empty-progress">ברגע שמשתתפת תזין שם ותצא לדרך — היא תופיע כאן 🙂</p>
   </section>
 
+  <!-- Reflections -->
+  <section id="panel-reflections" role="tabpanel" aria-labelledby="tab-reflections" hidden>
+    <h2 class="sr-only">עיבוד אישי</h2>
+    <div class="grid" id="grid-reflections"></div>
+    <p class="empty" id="empty-reflections">עדיין אין עיבודים אישיים — הם נשלחים במעבר מתחנה 1 לתחנה 2.</p>
+  </section>
+
+  <!-- Takeaways -->
   <section id="panel-takeaways" role="tabpanel" aria-labelledby="tab-takeaways" hidden>
     <h2 class="sr-only">פסקאות מהדיון</h2>
     <div class="grid" id="grid-takeaways"></div>
-    <p class="empty" id="empty-takeaways">עדיין אין פסקאות מהדיון — הן יופיעו כאן ברגע שיישלחו 🙂</p>
+    <p class="empty" id="empty-takeaways">עדיין אין פסקאות מהדיון — הן נשלחות בסוף תחנה 3.</p>
+  </section>
+
+  <!-- Products -->
+  <section id="panel-products" role="tabpanel" aria-labelledby="tab-products" hidden>
+    <h2 class="sr-only">תוצרים אישיים</h2>
+    <div class="grid" id="grid-products"></div>
+    <p class="empty" id="empty-products">עדיין אין תוצרים — הם נשלחים בתחנה 4.</p>
+  </section>
+
+  <!-- Question stats -->
+  <section id="panel-questions" role="tabpanel" aria-labelledby="tab-questions" hidden>
+    <h2 class="sr-only">סטטיסטיקת שאלות הדיון</h2>
+    <div id="q-stats"></div>
+    <p class="pair-stats" id="pair-stats"></p>
+    <p class="empty" id="empty-questions">עדיין אין נתוני בחירת שאלות — הם נשלחים במעבר מתחנה 2 לתחנה 3.</p>
   </section>
 
 </main>
 
 <footer>
   <a href="index.html">← לאפליקציית המסע</a>
+  <a href="slides.html">למצגת</a>
   <a href="accessibility.html">הצהרת נגישות</a>
-  <span>הרשומות ניתנות להסרה דרך קונסול Firebase (פרויקט ono-health-gallery)</span>
+  <span>איפוס הלוח מסתיר את כל הרשומות מהתצוגה ומההורדות; ארכיון מלא נשמר במסד (פרויקט ono-health-gallery)</span>
 </footer>
 
 <script type="module">
   const $ = (id) => document.getElementById(id);
 
-  /* Tabs */
-  const tabs = [
-    { tab: $('tab-products'),  panel: $('panel-products')  },
-    { tab: $('tab-takeaways'), panel: $('panel-takeaways') },
+  const STAGE_NAMES = ['פתיחה','תחנה 1 · המושג','תחנה 2 · זוגות','תחנה 3 · תרחיש','תחנה 4 · תוצר','סיום 🏁'];
+  const QUESTIONS = [
+    'איפה בהכשרות שלכן אתן מזהות את המעבר בין ״הסטודנט לא יודע״ לבין ״זקוק לפיגום מתאים״?',
+    'איך אפשר לזהות בהתנסות קלינית מה סטודנט כבר מסוגל לעשות לבד?',
+    'איך אפשר לזהות מה הוא מסוגל לעשות רק בעזרת הנחיה?',
+    'באילו מצבים אני נוטה לתת יותר מדי עזרה, ובאילו פחות מדי?',
+    'מה בתיאוריה הזו רלוונטי להכשרת אנשי מקצועות הבריאות?',
+    'איפה התיאוריה מתנגשת עם פרקטיקות הוראה או הערכה קיימות?',
+    'איזו דוגמה מהעולם המקצועי שלכן ממחישה את הרעיון?'
   ];
+
+  /* ---------- tabs ---------- */
+  const tabs = ['progress','reflections','takeaways','products','questions'].map(k => ({
+    key: k, tab: $('tab-'+k), panel: $('panel-'+k)
+  }));
   tabs.forEach(({tab, panel}) => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => {
@@ -185,22 +277,25 @@
     });
   });
 
-  /* Fullscreen */
   $('fs-btn').addEventListener('click', () => {
     if (document.fullscreenElement) document.exitFullscreen();
     else document.documentElement.requestFullscreen().catch(()=>{});
   });
 
-  /* Live data */
-  let productDocs = [], takeawayDocs = [];
-  const isTest = d => d.test === true || (typeof d.name === 'string' && d.name.trim().startsWith('בדיקה'));
+  /* ---------- live data ---------- */
+  let progressDocs = [], reflectionDocs = [], choiceDocs = [], takeawayDocs = [], productDocs = [];
+  let resetEpoch = 0; /* ms; records at/before this are hidden everywhere */
 
-  function whenText(ts){
-    if (!ts || !ts.toDate) return 'הרגע';
-    const mins = Math.round((Date.now() - ts.toDate().getTime()) / 60000);
+  const isTest = d => d.test === true || (typeof d.name === 'string' && d.name.trim().startsWith('בדיקה'));
+  const ms = d => (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now();
+  const visible = d => (ms(d) > resetEpoch) && ($('show-tests').checked || !isTest(d));
+  const pidOf = d => d.pid || ('name:' + (d.name || ''));
+
+  function whenText(d){
+    const mins = Math.round((Date.now() - ms(d)) / 60000);
     if (mins < 1) return 'הרגע';
     if (mins < 60) return `לפני ${mins} דק׳`;
-    const t = ts.toDate();
+    const t = new Date(ms(d));
     return `בשעה ${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}`;
   }
   function esc(s){
@@ -210,39 +305,165 @@
     try { const x = new URL(u); return (x.protocol === 'https:' || x.protocol === 'http:') ? x.href : null; }
     catch(e){ return null; }
   }
+  const latestPer = (docs) => {
+    const m = new Map();
+    docs.forEach(d => {
+      const k = pidOf(d);
+      if (!m.has(k) || ms(d) > ms(m.get(k))) m.set(k, d);
+    });
+    return m;
+  };
 
   function renderAll(){
-    const showTests = $('show-tests').checked;
+    const vProgress = progressDocs.filter(visible);
+    const vReflections = reflectionDocs.filter(visible);
+    const vChoices = choiceDocs.filter(visible);
+    const vTakeaways = takeawayDocs.filter(visible);
+    const vProducts = productDocs.filter(visible);
 
-    const prods = productDocs.filter(d => showTests || !isTest(d));
-    $('count-products').textContent = `${prods.length} תוצרים`;
+    /* --- participants (progress board) --- */
+    const latestProgress = latestPer(vProgress);
+    const latestReflection = latestPer(vReflections);
+    const latestChoices = latestPer(vChoices);
+    const takeawaysBy = new Map(), productsBy = new Map();
+    vTakeaways.forEach(d => { const k = pidOf(d); takeawaysBy.set(k, (takeawaysBy.get(k)||0)+1); });
+    vProducts.forEach(d => { const k = pidOf(d); productsBy.set(k, (productsBy.get(k)||0)+1); });
+
+    const participants = [...latestProgress.entries()].map(([k, d]) => ({
+      key: k, name: d.name, stage: d.stage ?? 0, since: ms(d),
+      hasReflection: latestReflection.has(k),
+      takeaways: takeawaysBy.get(k) || 0,
+      products: productsBy.get(k) || 0
+    })).sort((a,b) => (b.stage - a.stage) || (b.since - a.since));
+
+    $('count-participants').textContent = `${participants.length} משתתפות`;
+    $('empty-progress').hidden = participants.length > 0;
+
+    const stageCounts = [0,0,0,0,0,0];
+    participants.forEach(p => stageCounts[Math.min(5, Math.max(0, p.stage))]++);
+    $('stage-summary').innerHTML = STAGE_NAMES.map((nm, i) =>
+      `<span class="stage-sum">${esc(nm)}<b>${stageCounts[i]}</b></span>`).join('');
+
+    $('p-grid').innerHTML = participants.map(p => {
+      const minsIn = Math.max(0, Math.round((Date.now() - p.since) / 60000));
+      return `<article class="p-card">
+        <div class="p-top">
+          <span class="name">${esc(p.name)}</span>
+          <span class="stage-chip s${p.stage}">${esc(STAGE_NAMES[Math.min(5,Math.max(0,p.stage))])}</span>
+        </div>
+        <div class="p-meta">
+          <span>בתחנה ${minsIn < 1 ? 'פחות מדקה' : minsIn + ' דק׳'}</span>
+          <span class="art ${p.hasReflection ? 'on' : ''}" title="עיבוד אישי">📝 עיבוד</span>
+          <span class="art ${p.takeaways ? 'on' : ''}" title="פסקת דיון">💬 ${p.takeaways || 0}</span>
+          <span class="art ${p.products ? 'on' : ''}" title="תוצר">🎁 ${p.products || 0}</span>
+        </div>
+      </article>`;
+    }).join('');
+
+    /* --- reflections (latest per participant) --- */
+    const refl = [...latestReflection.values()].sort((a,b) => ms(b) - ms(a));
+    $('b-reflections').textContent = refl.length;
+    $('empty-reflections').hidden = refl.length > 0;
+    $('grid-reflections').innerHTML = refl.map(d => `
+      <article class="item">
+        <div class="who"><span class="name">${esc(d.name)}</span><span class="when">${whenText(d)}</span></div>
+        <div class="tags">${isTest(d) ? '<span class="tag">בדיקה</span>' : ''}
+          <span class="tag">הבנתי: ${d.wordsUnderstood ?? '—'} מילים</span>
+          <span class="tag warm">לא ברור: ${d.wordsUnclear ?? '—'} מילים</span>
+        </div>
+        <p class="sub-label">מה הבנתי, במילים שלי</p>
+        <p class="txt">${esc(d.understood || '—')}</p>
+        <p class="sub-label">מה עדיין לא ברור לי</p>
+        <p class="txt">${esc(d.unclear || '—')}</p>
+      </article>`).join('');
+
+    /* --- takeaways --- */
+    const takes = vTakeaways.slice().sort((a,b) => ms(b) - ms(a));
+    $('b-takeaways').textContent = takes.length;
+    $('empty-takeaways').hidden = takes.length > 0;
+    $('grid-takeaways').innerHTML = takes.map(d => `
+      <article class="item">
+        <div class="who"><span class="name">${esc(d.name)}</span><span class="when">${whenText(d)}</span></div>
+        <div class="tags">${d.scenario ? `<span class="tag">${esc(d.scenario)}</span>` : ''}${isTest(d) ? '<span class="tag">בדיקה</span>' : ''}</div>
+        <p class="txt">${esc(d.text)}</p>
+      </article>`).join('');
+
+    /* --- products --- */
+    const prods = vProducts.slice().sort((a,b) => ms(b) - ms(a));
+    $('b-products').textContent = prods.length;
     $('empty-products').hidden = prods.length > 0;
     $('grid-products').innerHTML = prods.map(d => {
       const link = d.link ? safeUrl(d.link) : null;
       return `<article class="item">
-        <div class="who"><span class="name">${esc(d.name)}</span><span class="when">${whenText(d.createdAt)}</span></div>
+        <div class="who"><span class="name">${esc(d.name)}</span><span class="when">${whenText(d)}</span></div>
         <div class="tags">${d.format ? `<span class="tag warm">${esc(d.format)}</span>` : ''}${isTest(d) ? '<span class="tag">בדיקה</span>' : ''}</div>
         <p class="txt">${esc(d.text)}</p>
         ${link ? `<a class="file-link" href="${esc(link)}" target="_blank" rel="noopener">📎 קובץ מצורף ↗</a>` : ''}
       </article>`;
     }).join('');
 
-    const takes = takeawayDocs.filter(d => showTests || !isTest(d));
-    $('count-takeaways').textContent = `${takes.length} פסקאות`;
-    $('empty-takeaways').hidden = takes.length > 0;
-    $('grid-takeaways').innerHTML = takes.map(d => `
-      <article class="item">
-        <div class="who"><span class="name">${esc(d.name)}</span><span class="when">${whenText(d.createdAt)}</span></div>
-        <div class="tags">${d.scenario ? `<span class="tag">${esc(d.scenario)}</span>` : ''}${isTest(d) ? '<span class="tag">בדיקה</span>' : ''}</div>
-        <p class="txt">${esc(d.text)}</p>
-      </article>`).join('');
+    /* --- question stats --- */
+    const choices = [...latestChoices.values()];
+    $('empty-questions').hidden = choices.length > 0;
+    const counts = QUESTIONS.map(() => 0);
+    let pairs = 0, triples = 0;
+    choices.forEach(d => {
+      (d.qs || []).forEach(qi => { if (qi >= 0 && qi < 7) counts[qi]++; });
+      if (d.pair === 3) triples++; else pairs++;
+    });
+    const maxCount = Math.max(1, ...counts);
+    $('q-stats').innerHTML = choices.length ? QUESTIONS.map((q, i) => `
+      <div class="q-stat">
+        <p class="q-text">${i+1}. ${esc(q)}</p>
+        <div class="q-bar-track">
+          <div class="q-bar" style="width:${Math.round(counts[i]/maxCount*100)}%">${counts[i]}</div>
+        </div>
+      </div>`).join('') : '';
+    $('pair-stats').textContent = choices.length ? `דיווחו: ${pairs} זוגות · ${triples} שלישיות` : '';
   }
   $('show-tests').addEventListener('change', renderAll);
-  setInterval(renderAll, 60000); /* refresh relative times */
+  setInterval(renderAll, 30000); /* refresh relative times */
 
+  /* ---------- CSV download ---------- */
+  function csvField(v){
+    const s = String(v ?? '').replace(/"/g, '""');
+    return `"${s}"`;
+  }
+  function timeStr(d){
+    const t = new Date(ms(d));
+    return t.toLocaleString('he-IL');
+  }
+  $('csv-btn').addEventListener('click', () => {
+    const rows = [['סוג','שם','פרט','תוכן 1','תוכן 2','מילים','זמן']];
+    [...latestPer(progressDocs.filter(visible)).values()].forEach(d =>
+      rows.push(['התקדמות', d.name, STAGE_NAMES[Math.min(5, Math.max(0, d.stage ?? 0))], '', '', '', timeStr(d)]));
+    [...latestPer(reflectionDocs.filter(visible)).values()].forEach(d =>
+      rows.push(['עיבוד אישי', d.name, '', d.understood || '', d.unclear || '',
+                 `${d.wordsUnderstood ?? ''}/${d.wordsUnclear ?? ''}`, timeStr(d)]));
+    [...latestPer(choiceDocs.filter(visible)).values()].forEach(d =>
+      rows.push(['שאלות שנבחרו', d.name, d.pair === 3 ? 'שלישייה' : 'זוג',
+                 (d.qs || []).map(q => q+1).join(' '), '', '', timeStr(d)]));
+    takeawayDocs.filter(visible).forEach(d =>
+      rows.push(['פסקת דיון', d.name, d.scenario || '', d.text || '', '', d.words ?? '', timeStr(d)]));
+    productDocs.filter(visible).forEach(d =>
+      rows.push(['תוצר', d.name, d.format || '', d.text || '', d.link || '', d.words ?? '', timeStr(d)]));
+
+    const csv = '﻿' + rows.map(r => r.map(csvField).join(',')).join('\r\n');
+    const blob = new Blob([csv], {type: 'text/csv;charset=utf-8'});
+    const a = document.createElement('a');
+    const t = new Date();
+    a.href = URL.createObjectURL(blob);
+    a.download = `zpd-meeting4-data-${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}-${String(t.getHours()).padStart(2,'0')}${String(t.getMinutes()).padStart(2,'0')}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+
+  /* ---------- Firestore ---------- */
+  let addResetDoc = null;
   try {
     const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
-    const { getFirestore, collection, onSnapshot, query, orderBy } =
+    const { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } =
       await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
 
     const FIREBASE_CONFIG = {
@@ -255,17 +476,55 @@
     };
     const app = initializeApp(FIREBASE_CONFIG);
     const db = getFirestore(app);
+    const onErr = () => $('conn-banner').classList.add('show');
 
-    onSnapshot(query(collection(db,'zpd_products'), orderBy('createdAt','desc')),
-      snap => { productDocs = snap.docs.map(d => d.data()); renderAll(); },
-      ()   => $('conn-banner').classList.add('show'));
+    const live = (col, assign) => onSnapshot(
+      query(collection(db, col), orderBy('createdAt','desc')),
+      snap => { assign(snap.docs.map(d => d.data())); renderAll(); },
+      onErr
+    );
+    live('zpd_progress',    docs => progressDocs = docs);
+    live('zpd_reflections', docs => reflectionDocs = docs);
+    live('zpd_choices',     docs => choiceDocs = docs);
+    live('zpd_takeaways',   docs => takeawayDocs = docs);
+    live('zpd_products',    docs => productDocs = docs);
 
-    onSnapshot(query(collection(db,'zpd_takeaways'), orderBy('createdAt','desc')),
-      snap => { takeawayDocs = snap.docs.map(d => d.data()); renderAll(); },
-      ()   => $('conn-banner').classList.add('show'));
+    onSnapshot(collection(db, 'zpd_admin'), snap => {
+      let latest = 0;
+      snap.forEach(doc => {
+        const d = doc.data();
+        if (d.kind === 'reset'){
+          const t = (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now();
+          if (t > latest) latest = t;
+        }
+      });
+      resetEpoch = latest;
+      renderAll();
+    }, onErr);
+
+    addResetDoc = () => addDoc(collection(db, 'zpd_admin'), { kind: 'reset', createdAt: serverTimestamp() });
   } catch (e) {
     $('conn-banner').classList.add('show');
   }
+
+  /* ---------- board reset (with a warning, per Tom) ---------- */
+  $('board-reset-btn').addEventListener('click', async () => {
+    const warning =
+      'אזהרה: איפוס הלוח!\n\n' +
+      'כל מה שהמשתתפות העלו עד הרגע — התקדמות, עיבודים אישיים, פסקאות, תוצרים וסטטיסטיקות — ' +
+      'ייעלם לצמיתות מהדשבורד ומהורדות ה-CSV.\n\n' +
+      '(העתק ארכיוני נשמר במסד הנתונים למקרה חירום; מחיקה פיזית מלאה אפשרית דרך קונסול Firebase.)\n\n' +
+      'לאפס את הלוח?';
+    if (!confirm(warning)) return;
+    if (!addResetDoc){ alert('אין חיבור למסד הנתונים כרגע — נסו שוב.'); return; }
+    try {
+      await addResetDoc();
+      $('reset-banner').classList.add('show');
+      setTimeout(() => $('reset-banner').classList.remove('show'), 6000);
+    } catch (e) {
+      alert('האיפוס נכשל — בדקו את החיבור ונסו שוב.');
+    }
+  });
 </script>
 </body>
 </html>

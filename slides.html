@@ -44,7 +44,7 @@
     }
     .slide.active{display:flex; flex-direction:column; justify-content:center; animation:fadein .35s ease both;}
     @keyframes fadein{from{opacity:0;} to{opacity:1;}}
-    .slide-inner{max-width:1150px; margin-inline:auto; width:100%;}
+    .slide-inner{max-width:1180px; margin-inline:auto; width:100%; max-height:100%; overflow-y:auto;}
 
     .slide.dark{
       background:
@@ -57,7 +57,7 @@
 
     .kicker{
       color:var(--coral-700); font-weight:800; letter-spacing:.02em;
-      font-size:clamp(1rem,2.2vmin,1.35rem); margin:0 0 .8rem;
+      font-size:clamp(1.05rem,2.4vmin,1.5rem); margin:0 0 .8rem;
     }
     h1{
       font-family:var(--font-display); font-weight:900; margin:0;
@@ -83,7 +83,12 @@
       content:""; position:absolute; right:0; top:.52em; width:.55em; height:.55em;
       border-radius:50%; background:var(--coral);
     }
-    .note-line{margin-top:3.5vmin; color:var(--ink-soft); font-size:clamp(1.05rem,2.6vmin,1.5rem); font-weight:700;}
+    .note-line{margin-top:3vmin; color:var(--ink-soft); font-size:clamp(1.05rem,2.6vmin,1.5rem); font-weight:700;}
+    .callout{
+      background:var(--coral-50); border:2px solid #EFD6CA; border-right-width:8px; border-right-color:var(--coral);
+      border-radius:16px; padding:1.6vmin 2.4vmin; margin-top:2.6vmin;
+      font-size:clamp(1.1rem,2.9vmin,1.75rem); font-weight:700; line-height:1.5;
+    }
 
     /* big question slide */
     .bigq{
@@ -117,14 +122,19 @@
       border-radius:12px; padding:1vmin 2vmin; margin-top:2vmin;
       font-size:clamp(.95rem,2.4vmin,1.5rem); word-break:break-all;
     }
-    .qr-side .wa{margin-top:2.2vmin; font-weight:800; color:var(--ok); font-size:clamp(1.05rem,2.8vmin,1.6rem);}
     .qr-side .qr-big{font-size:clamp(1.15rem,3.2vmin,1.9rem); font-weight:700; margin:0;}
+    .qr-side .wa{margin-top:2.2vmin; font-weight:800; color:var(--ok); font-size:clamp(1.05rem,2.8vmin,1.6rem);}
     .center-h{text-align:center;}
 
     /* activity slides */
+    .badges{display:flex; gap:1.2vmin; flex-wrap:wrap; align-items:center; margin-bottom:1.8vmin;}
     .act-tag{
       display:inline-block; background:var(--coral); color:#fff; border-radius:999px;
-      padding:.5vmin 2.4vmin; font-weight:800; font-size:clamp(1rem,2.6vmin,1.5rem); margin-bottom:1.6vmin;
+      padding:.5vmin 2.4vmin; font-weight:800; font-size:clamp(1rem,2.6vmin,1.5rem);
+    }
+    .mode-badge{
+      display:inline-block; background:var(--teal); color:#fff; border-radius:999px;
+      padding:.5vmin 2.6vmin; font-weight:800; font-size:clamp(1.1rem,3vmin,1.8rem);
     }
     .act-grid{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(260px,.75fr); gap:4vmin; align-items:center;}
     @media (max-aspect-ratio:1/1){ .act-grid{grid-template-columns:1fr;} }
@@ -138,49 +148,74 @@
       font-variant-numeric:tabular-nums;
     }
     .timer.over .t-disp{color:var(--coral-700);}
-    .timer .t-label{font-weight:800; color:var(--ink-soft); margin-bottom:1vmin; font-size:clamp(.95rem,2.2vmin,1.3rem);}
-    .t-presets{display:flex; gap:.8vmin; justify-content:center; flex-wrap:wrap; margin-top:1.6vmin;}
-    .t-presets button, .t-ctrl button{
+    .timer .t-label{font-weight:800; color:var(--ink-soft); margin-bottom:1vmin; font-size:clamp(1rem,2.4vmin,1.4rem);}
+    .t-ctrl{display:flex; gap:1vmin; justify-content:center; margin-top:1.8vmin; flex-wrap:wrap;}
+    .t-ctrl button{
       border:2px solid var(--teal); background:var(--surface); color:var(--teal-700);
-      border-radius:999px; padding:.8vmin 2vmin; font-weight:800; min-height:44px;
-      font-size:clamp(.9rem,2.2vmin,1.2rem);
+      border-radius:999px; padding:.9vmin 2.6vmin; font-weight:800; min-height:46px;
+      font-size:clamp(1rem,2.4vmin,1.3rem);
     }
-    .t-presets button:hover, .t-ctrl button:hover{background:var(--teal-50);}
-    .t-ctrl{display:flex; gap:.8vmin; justify-content:center; margin-top:1.2vmin; flex-wrap:wrap;}
+    .t-ctrl button:hover{background:var(--teal-50);}
     .t-ctrl .go{background:var(--teal); color:#fff;}
     .t-ctrl .go:hover{background:var(--teal-700);}
 
-    /* discussion slides */
-    ul.qs{list-style:none; padding:0; margin:0; font-size:clamp(1.15rem,3vmin,1.8rem); font-weight:600;}
-    ul.qs li{margin:1.9vmin 0; padding-inline-start:1.3em; position:relative;}
-    ul.qs li::before{content:"?"; position:absolute; right:0; top:0; color:var(--coral); font-weight:900;}
-
-    /* four moves */
-    .moves{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2vmin; margin-top:1vmin;}
-    .move{
-      background:var(--surface); border:2px solid var(--line); border-right:6px solid var(--coral);
-      border-radius:18px; padding:2.2vmin 2.4vmin;
+    /* merged debrief slide — enlarged per Tom's request */
+    .debrief-grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:2vmin 5vmin; align-items:start;
     }
-    .move b{display:block; color:var(--teal-700); font-size:clamp(1.15rem,2.8vmin,1.6rem); margin-bottom:.6vmin;}
-    .move p{margin:0; color:var(--ink); font-size:clamp(1rem,2.3vmin,1.3rem); line-height:1.5;}
+    @media (max-aspect-ratio:1/1){ .debrief-grid{grid-template-columns:1fr;} }
+    .debrief-part h3{
+      font-family:var(--font-display); font-weight:900; color:var(--coral-700);
+      font-size:clamp(1.3rem,3.4vmin,2rem); margin:0 0 1.4vmin;
+    }
+    ul.qs{list-style:none; padding:0; margin:0; font-size:clamp(1.25rem,3.2vmin,2rem); font-weight:700; line-height:1.45;}
+    ul.qs li{margin:1.7vmin 0; padding-inline-start:1.25em; position:relative;}
+    ul.qs li::before{content:"?"; position:absolute; right:0; top:0; color:var(--coral); font-weight:900;}
+    ul.qs li small{display:block; font-weight:600; color:var(--ink-soft); font-size:.78em; margin-top:.2vmin;}
+    .final-q{
+      margin-top:3vmin; background:var(--teal); color:#fff;
+      border-radius:20px; padding:2.4vmin 3vmin;
+      font-family:var(--font-display); font-weight:900; line-height:1.35;
+      font-size:clamp(1.5rem,4.2vmin,2.6rem);
+    }
+    .final-q .fq-tag{
+      display:inline-block; background:#fff; color:var(--coral-700);
+      border-radius:999px; padding:.3vmin 2vmin; font-family:var(--font-body);
+      font-weight:800; font-size:clamp(.95rem,2.3vmin,1.3rem); margin-bottom:1vmin;
+    }
+
+    /* four moves — 2x2 symmetric */
+    .moves{display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:2.4vmin; margin-top:1vmin;}
+    @media (max-aspect-ratio:4/5){ .moves{grid-template-columns:1fr;} }
+    .move{
+      background:var(--surface); border:2px solid var(--line); border-right:8px solid var(--coral);
+      border-radius:20px; padding:2.6vmin 2.8vmin;
+      display:flex; flex-direction:column; justify-content:center;
+    }
+    .move b{display:block; color:var(--teal-700); font-size:clamp(1.3rem,3.2vmin,2rem); margin-bottom:1vmin;}
+    .move p{margin:0; color:var(--ink); font-size:clamp(1.1rem,2.6vmin,1.6rem); line-height:1.5;}
 
     /* rubric slide */
-    .table-scroll-wrapper{width:100%; overflow:auto; max-height:70vh; border-radius:12px;}
+    .table-scroll-wrapper{width:100%; overflow:auto; max-height:74vh; border-radius:12px;}
     table.rubric{width:100%; border-collapse:collapse; background:var(--surface); min-width:640px;}
     table.rubric th, table.rubric td{
-      border:1px solid var(--line); padding:1.2vmin 1.4vmin; text-align:right; vertical-align:top;
-      font-size:clamp(.92rem,2.15vmin,1.35rem); line-height:1.45;
+      border:1px solid var(--line); padding:1.3vmin 1.5vmin; text-align:right; vertical-align:top;
+      font-size:clamp(1rem,2.35vmin,1.5rem); line-height:1.45;
     }
-    table.rubric th{background:var(--teal); color:#fff; font-size:clamp(1rem,2.3vmin,1.4rem);}
+    table.rubric th{background:var(--teal); color:#fff; font-size:clamp(1.05rem,2.5vmin,1.55rem);}
     table.rubric td:first-child{font-weight:800; color:var(--coral-700); white-space:nowrap;}
 
     /* quote */
     .quote{
       background:var(--surface); border-right:8px solid var(--coral); border-radius:18px;
       padding:3vmin 3.4vmin; font-size:clamp(1.2rem,3.1vmin,1.9rem); line-height:1.6; font-weight:600;
-      max-width:34em;
+      max-width:36em;
     }
     .slide.dark .quote{background:rgba(255,255,255,.08); color:#fff; border-right-color:#F3C9B6;}
+    .slide.dark .sub-point{
+      margin-top:2.6vmin; color:#DCEAE9; font-size:clamp(1.15rem,3vmin,1.85rem);
+      font-weight:600; line-height:1.55; max-width:36em;
+    }
 
     /* break slide */
     .break-emoji{font-size:clamp(4rem,16vmin,9rem); line-height:1;}
@@ -201,27 +236,17 @@
       background:var(--surface); border:2px solid var(--line); border-radius:999px;
       padding:.5rem 1rem; font-weight:800; color:var(--ink-soft); font-size:1rem;
     }
-    .timer-pill{
-      position:fixed; top:1rem; left:1rem; z-index:70; display:none;
-      background:var(--teal); color:#fff; border-radius:999px; padding:.45rem 1.2rem;
-      font-family:Consolas,Menlo,monospace; direction:ltr; font-weight:700; font-size:1.15rem;
-      box-shadow:0 4px 16px rgba(15,82,87,.35);
-    }
-    .timer-pill.show{display:block;}
-    .timer-pill.over{background:var(--coral);}
-
     .hint-keys{
       position:fixed; bottom:1.2rem; right:1.3rem; z-index:70;
       color:var(--ink-soft); font-size:.85rem; font-weight:700; opacity:.75;
     }
-    .slide.dark ~ .hint-keys{color:#fff;}
 
     a.board-link{
-      display:inline-flex; align-items:center; gap:.6rem; margin-top:3.4vmin;
-      background:var(--teal); color:#fff; text-decoration:none; border-radius:999px;
+      display:inline-flex; align-items:center; gap:.6rem; margin-top:2.4vmin;
+      background:var(--coral); color:#fff; text-decoration:none; border-radius:999px;
       padding:1.4vmin 3.4vmin; font-weight:800; font-size:clamp(1.05rem,2.8vmin,1.6rem);
     }
-    a.board-link:hover{background:var(--teal-700);}
+    a.board-link:hover{background:var(--coral-700);}
 
     @media (prefers-reduced-motion: reduce){
       *,*::before,*::after{
@@ -233,7 +258,6 @@
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
-<div class="timer-pill" id="timer-pill" aria-hidden="true">20:00</div>
 
 <main class="deck" id="deck" tabindex="0" aria-label="מצגת המפגש. ניווט: חץ שמאלה — הבא, חץ ימינה — הקודם">
 
@@ -275,21 +299,26 @@
     </div>
   </section>
 
-  <!-- 4 · Health professions connection -->
-  <section class="slide" data-title="החיבור למקצועות הבריאות">
+  <!-- 4 · Work instructions (before the QR!) -->
+  <section class="slide" data-title="איך נעבוד">
     <div class="slide-inner">
-      <h2>ולמה זה בוער דווקא אצלנו?</h2>
+      <h2>איך נעבוד בהתנסות?</h2>
       <ul class="big">
-        <li>במקצועות הבריאות, למידה אינה ידיעת מושגים — היא פעולה במצבים מורכבים.</li>
-        <li>מול מטופלים, בצוות, בסימולציות, בהתנסויות קליניות, בתנאי אי־ודאות.</li>
-        <li>לכן הערכה צריכה לבדוק: האם הסטודנט משתמש בידע כדי להבין מצב ולקבל החלטות?</li>
-        <li>ומה הוא כבר מסוגל לעשות לבד — ומה עדיין דורש ליווי, תיווך או פיגום?</li>
+        <li>בשלב הראשון — כל אחת לבד, בקצב שלה.</li>
+        <li>נעזרים במודל שפה לפי ההנחיות שבאפליקציה — ואפשר גם שיחה חופשית.</li>
+        <li>בהמשך — זוגות. שלישייה אחת בלבד בכל החדר: שלישייה מאריכה משמעותית את הדיון, והזמן קצר.</li>
+        <li>בוחרים תרחיש אחד, מנתחים אותו — ולסיום תוצר אישי שנשלח אליי דרך האפליקציה.</li>
       </ul>
-      <p class="note-line">המילים האחרונות האלה הן בדיוק הנושא שנלמד היום.</p>
+      <div class="callout">
+        כל השלבים חשובים לביצוע מלא. אבל <b>התוצר האישי</b> — בוחנים אותו בעין ביקורתית,
+        ואפשר להגיש משהו סמלי בלבד. אין ציפייה לתוצר מלא (הזמן לא יאפשר) —
+        המטרה היא לחוות גם את יצירת התוצר וגם את המערכת.
+      </div>
+      <p class="note-line">האפליקציה מובילה אתכן שלב אחר שלב — אפשר פשוט לזרום איתה 🙂</p>
     </div>
   </section>
 
-  <!-- 5 · QR -->
+  <!-- 5 · QR (revealed after the explanation) -->
   <section class="slide" data-title="פתיחת האפליקציה">
     <div class="slide-inner">
       <h2 class="center-h">סורקים — ויוצאים לדרך 📱</h2>
@@ -306,116 +335,110 @@
     </div>
   </section>
 
-  <!-- 6 · Work instructions -->
-  <section class="slide" data-title="איך נעבוד">
+  <!-- 6 · Activity: station 1 -->
+  <section class="slide" data-title="תחנה 1" data-timer="10">
     <div class="slide-inner">
-      <h2>איך נעבוד בשעה וחצי הקרובות?</h2>
-      <ul class="big">
-        <li>בשלב הראשון — כל אחת לבד, בקצב שלה.</li>
-        <li>נעזרים במודל שפה לפי ההנחיות שבאפליקציה.</li>
-        <li>בהמשך — זוגות. אם המספר אי־זוגי: שלישייה אחת.</li>
-        <li>בוחרים תרחיש אחד משלושה, ומנתחים אותו לאור המושג שנלמד.</li>
-        <li>לסיום — תוצר אישי, שנשלח אליי דרך האפליקציה.</li>
-      </ul>
-      <p class="note-line">האפליקציה מובילה אתכן שלב אחר שלב — אפשר פשוט לזרום איתה 🙂</p>
-    </div>
-  </section>
-
-  <!-- 7 · Activity: station 1 -->
-  <section class="slide" data-title="תחנה 1" data-timer="15,20">
-    <div class="slide-inner">
-      <span class="act-tag">עכשיו באפליקציה · תחנה 1</span>
+      <div class="badges">
+        <span class="act-tag">עכשיו באפליקציה · תחנה 1</span>
+        <span class="mode-badge">🧍 עבודה אישית</span>
+      </div>
       <div class="act-grid">
         <div>
           <h2>מפגש עם המושג</h2>
           <ul class="big">
             <li>עבודה אישית, בשקט, עם מודל שפה.</li>
-            <li>האפליקציה נותנת פרומפטים מוכנים — מעתיקים ומשוחחים.</li>
-            <li>אני לא מסביר את התוכן בשלב הזה. זו בדיוק הנקודה.</li>
+            <li>האפליקציה נותנת פרומפטים מוכנים — ניתן להעתיק ולשוחח. לא חובה: אפשר גם שיחה חופשית עם מודל השפה.</li>
+            <li>אני לא מסביר את התוכן בשלב הזה. זו בדיוק הנקודה. אפשר לקרוא לי לתמיכה טכנית או הסבר אם משהו לא ברור — ממה שלא ברור אני אלמד על כשלים בבהירות של חוויית המשתמש 😉</li>
           </ul>
         </div>
         <div class="timer" data-role="timer">
-          <p class="t-label">זמן לתחנה</p>
-          <p class="t-disp">15:00</p>
-          <div class="t-presets"></div>
+          <p class="t-label">זמן לתחנה: 10 דקות</p>
+          <p class="t-disp">10:00</p>
           <div class="t-ctrl"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 8 · Activity: station 2 -->
-  <section class="slide" data-title="תחנה 2" data-timer="20,25">
+  <!-- 7 · Activity: station 2 -->
+  <section class="slide" data-title="תחנה 2" data-timer="10">
     <div class="slide-inner">
-      <span class="act-tag">עכשיו באפליקציה · תחנה 2</span>
+      <div class="badges">
+        <span class="act-tag">עכשיו באפליקציה · תחנה 2</span>
+        <span class="mode-badge">👥 בזוגות</span>
+      </div>
       <div class="act-grid">
         <div>
           <h2>שיחה בזוגות</h2>
           <ul class="big">
-            <li>מוצאים בת זוג ופינה נוחה בחדר.</li>
+            <li>מוצאים בת זוג ופינה נוחה בחדר — אפשר ומומלץ לצאת החוצה לפינה שקטה בקומה.</li>
             <li>מסבירות זו לזו, במילים שלכן, מה הבנתן.</li>
             <li>שאלת החובה: מה הרעיון המרכזי במושג?</li>
             <li>ובוחרות יחד עוד שלוש שאלות לפחות מהרשימה.</li>
           </ul>
         </div>
         <div class="timer" data-role="timer">
-          <p class="t-label">זמן לתחנה</p>
-          <p class="t-disp">20:00</p>
-          <div class="t-presets"></div>
+          <p class="t-label">זמן לתחנה: 10 דקות</p>
+          <p class="t-disp">10:00</p>
           <div class="t-ctrl"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 9 · Activity: station 3 -->
-  <section class="slide" data-title="תחנה 3" data-timer="20">
+  <!-- 8 · Activity: station 3 -->
+  <section class="slide" data-title="תחנה 3" data-timer="10">
     <div class="slide-inner">
-      <span class="act-tag">עכשיו באפליקציה · תחנה 3</span>
+      <div class="badges">
+        <span class="act-tag">עכשיו באפליקציה · תחנה 3</span>
+        <span class="mode-badge">👥 בזוגות</span>
+      </div>
       <div class="act-grid">
         <div>
           <h2>ניתוח תרחיש לאור המושג</h2>
           <ul class="big">
-            <li>בוחרים תרחיש אחד: סיעוד · פיזיותרפיה/ריפוי בעיסוק · קלינאות תקשורת.</li>
+            <li>בוחרים תרחיש: סיעוד · פיזיותרפיה/ריפוי בעיסוק · קלינאות תקשורת — או תרחיש משלכן.</li>
             <li>מנתחים יחד לפי שאלות ההנחיה שבאפליקציה.</li>
             <li>בסוף — כל אחת שולחת פסקה: מה אני לוקחת מהדיון?</li>
           </ul>
         </div>
         <div class="timer" data-role="timer">
-          <p class="t-label">זמן לתחנה</p>
-          <p class="t-disp">20:00</p>
-          <div class="t-presets"></div>
+          <p class="t-label">זמן לתחנה: 10 דקות</p>
+          <p class="t-disp">10:00</p>
           <div class="t-ctrl"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 10 · Activity: station 4 -->
-  <section class="slide" data-title="תחנה 4" data-timer="20,25">
+  <!-- 9 · Activity: station 4 -->
+  <section class="slide" data-title="תחנה 4" data-timer="15">
     <div class="slide-inner">
-      <span class="act-tag">עכשיו באפליקציה · תחנה 4</span>
+      <div class="badges">
+        <span class="act-tag">עכשיו באפליקציה · תחנה 4</span>
+        <span class="mode-badge">🧍 עבודה אישית</span>
+      </div>
       <div class="act-grid">
         <div>
           <h2>תוצר אישי</h2>
           <ul class="big">
-            <li>מקרה אמיתי מהעבודה שלכן — או אחד התרחישים.</li>
-            <li>שמונת הרכיבים והמחוון מחכים באפליקציה.</li>
+            <li>מודים לבת הזוג — וממשיכים לבד.</li>
+            <li>מקרה אמיתי מהעבודה שלכן, או אחד התרחישים. שמונת הרכיבים והמחוון באפליקציה.</li>
             <li>מותר להיעזר ב-AI. אסור שהתוצר יהיה גנרי — הוא חייב לכלול אתכן.</li>
+            <li>אין ציפייה לתוצר מלא — אפשר להגיש משהו סמלי, העיקר לחוות את התהליך.</li>
             <li>הגשה דרך האפליקציה · קבצים (הקלטה/שקף/תמונה) — בוואטסאפ.</li>
           </ul>
         </div>
         <div class="timer" data-role="timer">
-          <p class="t-label">זמן לתחנה</p>
-          <p class="t-disp">20:00</p>
-          <div class="t-presets"></div>
+          <p class="t-label">זמן לתחנה: 15 דקות</p>
+          <p class="t-disp">15:00</p>
           <div class="t-ctrl"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 11 · Break -->
+  <!-- 10 · Break -->
   <section class="slide" data-title="הפסקה" data-timer="10">
     <div class="slide-inner">
       <div class="act-grid">
@@ -425,44 +448,48 @@
           <p class="note-line">חוזרים לדיון המסכם — עם קפה ביד.</p>
         </div>
         <div class="timer" data-role="timer">
-          <p class="t-label">חוזרים בעוד</p>
+          <p class="t-label">חוזרים בעוד 10 דקות</p>
           <p class="t-disp">10:00</p>
-          <div class="t-presets"></div>
           <div class="t-ctrl"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 12 · Debrief I -->
-  <section class="slide" data-title="דיון מסכם · חלק א">
+  <!-- 11 · Debrief — merged, enlarged -->
+  <section class="slide" data-title="דיון מסכם">
     <div class="slide-inner">
-      <p class="kicker">דיון מסכם · מה קרה כאן?</p>
-      <ul class="qs">
-        <li>האם התרחשה כאן למידה?</li>
-        <li>באיזה שלב הבינה המלאכותית עזרה לכן?</li>
-        <li>באיזה שלב הייתן חייבות להכניס את עצמכן לתהליך?</li>
-        <li>האם התוצר היה יכול להיווצר בלי שלמדתן משהו?</li>
-        <li>כמה מאמץ היה נדרש ממי שמתעקש לא ללמוד כלל — רק להעתיק מהבינה?</li>
-        <li>מה ההבדל בין תוצר כזה לבין ״עבודה כתובה״ רגילה?</li>
-      </ul>
+      <p class="kicker">דיון מסכם · מה קרה כאן בעצם?</p>
+      <div class="debrief-grid">
+        <div class="debrief-part">
+          <h3>על החוויה שלכן</h3>
+          <ul class="qs">
+            <li>האם התרחשה כאן למידה?</li>
+            <li>באיזה שלב הבינה המלאכותית עזרה לכן — ובאיזה שלב הייתן חייבות להכניס את עצמכן?</li>
+            <li>האם התוצר היה יכול להיווצר בלי שלמדתן משהו?
+              <small>(למעט סטודנט שרוצה בכל מחיר לא ללמוד ורק להעתיק — לזה אין פתרון שאינו אגרסיבי באותה המידה)</small>
+            </li>
+            <li>מה ההבדל בין תוצר כזה לבין ״עבודה כתובה״ רגילה?</li>
+          </ul>
+        </div>
+        <div class="debrief-part">
+          <h3>מהחוויה אל הקורסים שלכן</h3>
+          <ul class="qs">
+            <li>כיצד המושג שלמדנו עזר לכן לראות אחרת את תפקיד המרצה או המדריכה?</li>
+            <li>איך אפשר ליישם מבנה דומה בקורסים שלכן?</li>
+            <li>מה נדרש כדי להפוך התנסות חד־פעמית לפרקטיקה קבועה בקורס?</li>
+          </ul>
+          <a class="board-link" href="teacher.html" target="_blank" rel="noopener">🖥 נציץ בתוצרים שלכן — הלוח החי ↗</a>
+        </div>
+      </div>
+      <div class="final-q">
+        <span class="fq-tag">ולשאלה הגדולה של הסיום</span><br>
+        אילו הייתן שולטות בוייב קודינג — איזה מסע למידה הייתן מתכננות, בהשראת החוויה שחוויתן כרגע?
+      </div>
     </div>
   </section>
 
-  <!-- 13 · Debrief II + live board -->
-  <section class="slide" data-title="דיון מסכם · חלק ב">
-    <div class="slide-inner">
-      <p class="kicker">דיון מסכם · מהחוויה אל הקורסים שלכן</p>
-      <ul class="qs">
-        <li>כיצד המושג שלמדנו עזר לכן לראות אחרת את תפקיד המרצה או המדריכה?</li>
-        <li>איך אפשר ליישם מבנה דומה בקורסים שלכן?</li>
-        <li>מה נדרש כדי להפוך התנסות חד־פעמית לפרקטיקה קבועה בקורס?</li>
-      </ul>
-      <a class="board-link" href="teacher.html" target="_blank" rel="noopener">🖥 נציץ בתוצרים שלכן — הלוח החי ↗</a>
-    </div>
-  </section>
-
-  <!-- 14 · Four moves -->
+  <!-- 12 · Four moves — 2x2 -->
   <section class="slide" data-title="מה בעצם עשינו כאן">
     <div class="slide-inner">
       <h2>מה בעצם עשינו כאן? ארבעה מהלכים</h2>
@@ -475,26 +502,10 @@
     </div>
   </section>
 
-  <!-- 15 · AI as scaffold -->
-  <section class="slide dark" data-title="AI כפיגום">
-    <div class="slide-inner">
-      <p class="kicker">תוספת חשובה</p>
-      <h2>הבינה המלאכותית עצמה — סוג של פיגום</h2>
-      <p class="subtitle">
-        היא יכולה להסביר, לשאול, להציע דוגמאות, לארגן חשיבה ולסייע בניסוח.
-        אבל כמו כל פיגום — היא חייבת להיות מתוכננת כך שתקדם עצמאות, ולא תחליף את הלמידה.
-      </p>
-      <div class="quote">
-        השאלה הפדגוגית אינה רק ״האם להשתמש ב-AI?״ אלא:
-        <strong>איזה סוג של תמיכה AI נותן, באיזה שלב, ולשם מה?</strong>
-      </div>
-    </div>
-  </section>
-
-  <!-- 16 · Rubric -->
+  <!-- 13 · Rubric -->
   <section class="slide" data-title="המחוון">
     <div class="slide-inner">
-      <h2>מה הופך תוצר לאיכותי? המחוון</h2>
+      <h2>המחוון</h2>
       <div class="table-scroll-wrapper" tabindex="0" role="region" aria-label="טבלת המחוון (ניתנת לגלילה)">
         <table class="rubric">
           <thead><tr><th scope="col">ממד</th><th scope="col">שאלה מנחה</th><th scope="col">רמת ביצוע גבוהה</th></tr></thead>
@@ -511,16 +522,21 @@
     </div>
   </section>
 
-  <!-- 17 · Closing -->
+  <!-- 14 · Closing -->
   <section class="slide dark" data-title="סיכום">
     <div class="slide-inner">
       <p class="kicker">לסיכום</p>
       <h2>האתגר אינו למנוע שימוש ב-AI — אלא לעצב משימות שבהן השימוש בו מחייב למידה עמוקה יותר</h2>
+      <p class="sub-point">
+        ועוד מהלך אחד: במקום הערכה מסכמת אחת בסוף הקורס — אפשר לאסוף מיני־אירועי־הערכה
+        לאורך הקורס, כמו שעשינו כאן היום, והציון משקף את כולם (עם או בלי אירוע מסכם).
+        גם זה מרחיק את הסטודנטים מהעתקה והגשת עבודה כתובה בידי בינה מלאכותית בסוף הקורס —
+        כי זה מקשה עליה, או פשוט מייתר אותה.
+      </p>
       <div class="quote">
         ״יש אפשרות שלישית: לעצב תהליך שבו הבינה המלאכותית היא חלק ממסלול הלמידה,
         אבל הלומד עדיין חייב לחשוב, לפרש, לבחור, לשוחח, להתחבר לניסיון שלו —
-        ולהיות נוכח בתוך התוצר. במובן הזה, AI יכול להיות פיגום מצוין:
-        כל עוד אנחנו מתכננים אותו כך שהוא בונה עצמאות, ולא מחליף אותה.״
+        ולהיות נוכח בתוך התוצר.״
       </div>
       <p class="presenter">תודה! · tomhagiladi@gmail.com</p>
     </div>
@@ -530,7 +546,7 @@
 
 <div class="hud">
   <button id="btn-prev" aria-label="השקף הקודם">→</button>
-  <span class="counter" id="counter">1 / 17</span>
+  <span class="counter" id="counter">1 / 14</span>
   <button id="btn-next" aria-label="השקף הבא">←</button>
   <button id="btn-fs" aria-label="מסך מלא">⛶</button>
 </div>
@@ -545,8 +561,59 @@
   var deck = document.getElementById('deck');
   var announcer = document.getElementById('announcer');
 
+  /* ===== timers — one per activity slide, fixed duration =====
+     Leaving a slide stops and resets its timer (Tom's request):
+     no floating leftovers, every slide starts clean. */
+  var activeTimer = null; /* {iv, secs, mins, disp, box} */
+
+  function fmt(s){
+    var m = Math.floor(Math.abs(s)/60), r = Math.abs(s)%60;
+    return (s<0?'-':'') + String(m).padStart(2,'0') + ':' + String(r).padStart(2,'0');
+  }
+  function stopAndResetTimer(){
+    if (activeTimer){
+      clearInterval(activeTimer.iv);
+      activeTimer.disp.textContent = fmt(activeTimer.mins*60);
+      activeTimer.box.classList.remove('over');
+      activeTimer = null;
+    }
+  }
+  function startTimer(box, disp, mins){
+    stopAndResetTimer();
+    activeTimer = { secs: mins*60, mins: mins, disp: disp, box: box };
+    disp.textContent = fmt(activeTimer.secs);
+    activeTimer.iv = setInterval(function(){
+      if (!activeTimer) return;
+      activeTimer.secs--;
+      activeTimer.disp.textContent = fmt(activeTimer.secs);
+      activeTimer.box.classList.toggle('over', activeTimer.secs < 0);
+    }, 1000);
+  }
+
+  slides.forEach(function(slide){
+    var spec = slide.getAttribute('data-timer');
+    if (!spec) return;
+    var mins = parseInt(spec, 10);
+    var box = slide.querySelector('[data-role="timer"]');
+    var disp = box.querySelector('.t-disp');
+    var ctrl = box.querySelector('.t-ctrl');
+
+    var go = document.createElement('button');
+    go.type='button'; go.className='go'; go.textContent = '▶ התחלה';
+    go.addEventListener('click', function(){ startTimer(box, disp, mins); });
+    var stop = document.createElement('button');
+    stop.type='button'; stop.textContent = '⏹ עצירה';
+    stop.addEventListener('click', function(){
+      if (activeTimer && activeTimer.box === box){ stopAndResetTimer(); }
+      else { disp.textContent = fmt(mins*60); box.classList.remove('over'); }
+    });
+    ctrl.appendChild(go); ctrl.appendChild(stop);
+  });
+
+  /* ===== navigation ===== */
   function show(n){
     n = Math.max(0, Math.min(slides.length-1, n));
+    if (n !== cur){ stopAndResetTimer(); }
     slides[cur].classList.remove('active');
     cur = n;
     slides[cur].classList.add('active');
@@ -592,66 +659,6 @@
     }
     tx = ty = null;
   }, {passive:true});
-
-  /* ===== timers ===== */
-  var pill = document.getElementById('timer-pill');
-  var active = null; /* {secs, total, iv, disp, box} */
-
-  function fmt(s){
-    var m = Math.floor(Math.abs(s)/60), r = Math.abs(s)%60;
-    return (s<0?'-':'') + String(m).padStart(2,'0') + ':' + String(r).padStart(2,'0');
-  }
-  function tick(){
-    if (!active) return;
-    active.secs--;
-    var over = active.secs < 0;
-    active.disp.textContent = fmt(active.secs);
-    pill.textContent = fmt(active.secs);
-    active.box.classList.toggle('over', over);
-    pill.classList.toggle('over', over);
-  }
-  function startTimer(box, disp, mins){
-    stopTimer();
-    active = { secs:mins*60, total:mins*60, disp:disp, box:box };
-    disp.textContent = fmt(active.secs);
-    pill.textContent = fmt(active.secs);
-    pill.classList.add('show'); pill.classList.remove('over');
-    box.classList.remove('over');
-    active.iv = setInterval(tick, 1000);
-  }
-  function stopTimer(){
-    if (active && active.iv) clearInterval(active.iv);
-    active = null;
-    pill.classList.remove('show','over');
-  }
-
-  slides.forEach(function(slide){
-    var spec = slide.getAttribute('data-timer');
-    if (!spec) return;
-    var box = slide.querySelector('[data-role="timer"]');
-    var disp = box.querySelector('.t-disp');
-    var presets = box.querySelector('.t-presets');
-    var ctrl = box.querySelector('.t-ctrl');
-    var mins = spec.split(',').map(Number);
-
-    mins.forEach(function(m){
-      var b = document.createElement('button');
-      b.type='button'; b.textContent = m + ' דק׳';
-      b.addEventListener('click', function(){ startTimer(box, disp, m); });
-      presets.appendChild(b);
-    });
-    var go = document.createElement('button');
-    go.type='button'; go.className='go'; go.textContent = '▶ התחלה';
-    go.addEventListener('click', function(){ startTimer(box, disp, mins[0]); });
-    var stop = document.createElement('button');
-    stop.type='button'; stop.textContent = '⏹ עצירה';
-    stop.addEventListener('click', function(){
-      stopTimer();
-      disp.textContent = fmt(mins[0]*60);
-      box.classList.remove('over');
-    });
-    ctrl.appendChild(go); ctrl.appendChild(stop);
-  });
 
   show(0);
   deck.focus();
