@@ -493,8 +493,10 @@
       let latest = 0;
       snap.forEach(doc => {
         const d = doc.data();
-        if (d.kind === 'reset'){
-          const t = (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now();
+        /* only server-stamped resets count — a doc without createdAt must NOT
+           be treated as "reset now" (it would silently hide the whole board) */
+        if (d.kind === 'reset' && d.createdAt && d.createdAt.toMillis){
+          const t = d.createdAt.toMillis();
           if (t > latest) latest = t;
         }
       });
