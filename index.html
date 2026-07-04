@@ -1355,12 +1355,22 @@
   $('send-product').addEventListener('click', function(){
     var btn = this;
     var st = $('product-status');
+    /* a fresh attempt always starts with a clean slate — no leftover
+       success box next to a new error (Tom's bug report, 4.7) */
+    $('product-sent').hidden = true;
+    st.className = 'status';
+    st.textContent = '';
     var name = $('p-name').value.trim();
     var txt = $('product').value.trim();
     var link = $('p-link').value.trim();
-    if (name.length < 2){ setStatus(st, 'כתבי בבקשה את שמך.', 'err'); $('p-name').focus(); return; }
-    if (!state.format){ setStatus(st, 'בחרי בבקשה פורמט הגשה (למעלה).', 'err'); return; }
-    if (txt.length < 5){ setStatus(st, 'הדביקי או כתבי את התוצר (או תיאור קצר שלו, אם הוא קובץ שנשלח בוואטסאפ).', 'err'); $('product').focus(); return; }
+    var missing = [];
+    if (name.length < 2) missing.push('לכתוב את שמך');
+    if (!state.format) missing.push('לבחור פורמט הגשה (למעלה)');
+    if (txt.length < 5) missing.push('לכתוב משהו בשדה התוצר — או תיאור קצר, אם הקובץ נשלח בוואטסאפ');
+    if (missing.length){
+      setStatus(st, 'כדי לשלוח ולעבור למסך הבא צריך: ' + missing.join(' · ') + '.', 'err');
+      return;
+    }
     if (link && !/^https?:\/\//i.test(link)){ setStatus(st, 'הקישור צריך להתחיל ב-https (או להישאר ריק).', 'err'); $('p-link').focus(); return; }
     if (!window.zpdSend){
       setStatus(st, 'אין כרגע חיבור לרשת. נסי שוב בעוד רגע, או שלחי את הטקסט בוואטסאפ.', 'err');
@@ -1379,6 +1389,7 @@
     if (link) data.link = link;
     window.zpdSend('zpd_products', data).then(function(){
       state.productSent = true; save();
+      $('product-sent').hidden = false;
       setStatus(st, 'התוצר נשלח למרצה! 🎉', 'ok');
       setTimeout(function(){ go(5); }, 900);
     }).catch(function(){
