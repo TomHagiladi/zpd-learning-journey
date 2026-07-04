@@ -406,10 +406,8 @@
     const choices = [...latestChoices.values()];
     $('empty-questions').hidden = choices.length > 0;
     const counts = QUESTIONS.map(() => 0);
-    let pairs = 0, triples = 0;
     choices.forEach(d => {
       (d.qs || []).forEach(qi => { if (qi >= 0 && qi < 7) counts[qi]++; });
-      if (d.pair === 3) triples++; else pairs++;
     });
     const maxCount = Math.max(1, ...counts);
     $('q-stats').innerHTML = choices.length ? QUESTIONS.map((q, i) => `
@@ -419,7 +417,7 @@
           <div class="q-bar" style="width:${Math.round(counts[i]/maxCount*100)}%">${counts[i]}</div>
         </div>
       </div>`).join('') : '';
-    $('pair-stats').textContent = choices.length ? `דיווחו: ${pairs} זוגות · ${triples} שלישיות` : '';
+    $('pair-stats').textContent = choices.length ? `דיווחו: ${choices.length} זוגות/שלישיות` : '';
   }
   $('show-tests').addEventListener('change', renderAll);
   setInterval(renderAll, 30000); /* refresh relative times */
@@ -441,7 +439,7 @@
       rows.push(['עיבוד אישי', d.name, '', d.understood || '', d.unclear || '',
                  `${d.wordsUnderstood ?? ''}/${d.wordsUnclear ?? ''}`, timeStr(d)]));
     [...latestPer(choiceDocs.filter(visible)).values()].forEach(d =>
-      rows.push(['שאלות שנבחרו', d.name, d.pair === 3 ? 'שלישייה' : 'זוג',
+      rows.push(['שאלות שנבחרו', d.name, '',
                  (d.qs || []).map(q => q+1).join(' '), '', '', timeStr(d)]));
     takeawayDocs.filter(visible).forEach(d =>
       rows.push(['פסקת דיון', d.name, d.scenario || '', d.text || '', '', d.words ?? '', timeStr(d)]));

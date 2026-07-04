@@ -644,7 +644,7 @@
       <section class="screen" id="screen-2" aria-labelledby="h-s2">
         <div class="stage-head">
           <span class="eyebrow">תחנה 2 · חלק ה׳ בתכנית המפגש</span>
-          <h2 id="h-s2" tabindex="-1">שיחה בזוגות</h2>
+          <h2 id="h-s2" tabindex="-1">שיחה בזוגות (או בשלישייה)</h2>
           <div class="meta-chips">
             <span class="chip warm">👥 בזוגות</span>
             <span class="chip">מומלץ: כ־10 דקות</span>
@@ -667,8 +667,7 @@
               עובדים בזוגות, ולכל היותר שלישייה אחת אם המספר אינו זוגי.
             </div>
             <div class="btn-row">
-              <button class="btn btn-primary" id="pair-2">מצאתי בת זוג ✓</button>
-              <button class="btn btn-secondary" id="pair-3">אנחנו השלישייה היחידה ✓</button>
+              <button class="btn btn-primary" id="pair-2">מצאתי בת זוג (או שלישייה) ✓</button>
             </div>
             <div class="btn-row">
               <button class="btn-back" data-go="1">→ חזרה לתחנה 1</button>
@@ -1211,7 +1210,6 @@
   });
 
   $('pair-2').addEventListener('click', function(){ state.pair = 2; save(); render(false); });
-  $('pair-3').addEventListener('click', function(){ state.pair = 3; save(); render(false); });
 
   document.querySelectorAll('#q-list input').forEach(function(cb){
     cb.addEventListener('change', function(){
@@ -1223,7 +1221,7 @@
     });
   });
   $('to-scenarios').addEventListener('click', function(){
-    report('zpd_choices', { qs: state.qs.slice().sort(), pair: state.pair || 2 });
+    report('zpd_choices', { qs: state.qs.slice().sort() });
     go(3);
   });
 
