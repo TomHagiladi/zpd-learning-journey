@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0F5257">
+  <meta name="description" content="מסע למידה מונחה על אזור ההתפתחות המקורב (ZPD) — מפגש 4, סגל הפקולטה למקצועות הבריאות, הקריה האקדמית אונו. האפליקציה מובילה שלב אחר שלב: מפגש עם המושג, שיחה בזוגות, ניתוח תרחיש והפקת תוצר אישי.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="מסע למידה: אזור ההתפתחות המקורב · מפגש 4 · אונו">
+  <meta property="og:description" content="האפליקציה תוביל אתכן שלב אחר שלב: למידה עם מודל שפה, שיחה בזוגות, ניתוח תרחיש והפקת תוצר אישי.">
+
+  <title>מסע למידה: אזור ההתפתחות המקורב · מפגש 4 · מקצועות הבריאות, אונו</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230F5257'/%3E%3Cpath d='M18 44 Q26 36 22 28 T34 18' fill='none' stroke='%23FAF6EE' stroke-width='4' stroke-dasharray='2 6' stroke-linecap='round'/%3E%3Ccircle cx='42' cy='20' r='7' fill='%23C75B39'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Design tokens — series palette (meetings 1-2) + journey identity ===== */
+    :root{
+      --cream:#FAF6EE;
+      --cream-2:#F3EBDC;
+      --surface:#FFFFFF;
+      --ink:#1E2B33;
+      --ink-soft:#46565E;
+      --teal:#0F5257;
+      --teal-700:#0A3D41;
+      --teal-50:#E4EFEF;
+      --coral:#C75B39;
+      --coral-700:#A8492C;
+      --coral-50:#FBEFE9;
+      --sand:#E7D8C0;
+      --line:#E7DFD0;
+      --ok:#2E7D46;
+      --ok-50:#EAF4EC;
+      --focus:#B04A00;
+      --radius:18px;
+      --radius-sm:12px;
+      --shadow-sm:0 1px 2px rgba(30,43,51,.06), 0 4px 14px rgba(30,43,51,.05);
+      --shadow-md:0 14px 40px rgba(15,82,87,.14), 0 4px 12px rgba(30,43,51,.08);
+      --font-display:'Frank Ruhl Libre', 'Times New Roman', serif;
+      --font-body:'Assistant', 'Segoe UI', 'Arial Hebrew', Arial, sans-serif;
+      --maxw:1060px;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;}
+    html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family:var(--font-body);
+      background:
+        radial-gradient(90% 40% at 85% -5%, rgba(15,82,87,.06), transparent 60%),
+        var(--cream);
+      color:var(--ink);
+      line-height:1.7;
+      font-size:18px;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    h1,h2,h3,h4{line-height:1.25; margin:0; font-family:var(--font-body);}
+    p{margin:0;}
+    button{font-family:inherit; cursor:pointer;}
+    textarea,input,select{font-family:inherit; font-size:1rem; color:var(--ink);}
+    .latin{direction:ltr; unicode-bidi:isolate;}
+
+    /* ===== Accessibility helpers ===== */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    .skip-link{
+      position:absolute; top:-100%; right:0;
+      background:var(--teal); color:#fff; padding:.75rem 1.5rem;
+      font-weight:700; z-index:300; text-decoration:none; border-radius:0 0 0 10px;
+    }
+    .skip-link:focus{top:0; outline:3px solid var(--focus); outline-offset:2px;}
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+    input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible{
+      outline:3px solid var(--focus);
+      outline-offset:3px;
+      border-radius:6px;
+    }
+
+    /* ===== Header ===== */
+    .site-header{
+      background:linear-gradient(180deg,var(--teal) 0%, var(--teal-700) 100%);
+      color:#fff;
+      padding:1.1rem 0 1.2rem;
+    }
+    .site-header .wrap{
+      display:flex; flex-wrap:wrap; align-items:baseline; gap:.35rem .9rem;
+      max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(1rem,4vw,2.2rem);
+    }
+    .site-header .kicker{
+      font-size:.86rem; font-weight:700; letter-spacing:.02em; color:#CDE2E1; margin:0;
+    }
+    .site-header h1{font-size:clamp(1.15rem, 2.6vw, 1.45rem); font-weight:800; color:#fff;}
+
+    /* ===== Layout: journey rail + content ===== */
+    .app{
+      max-width:var(--maxw); margin-inline:auto;
+      padding:clamp(1.1rem,3.5vw,2rem) clamp(1rem,4vw,2.2rem) 4rem;
+      display:grid; grid-template-columns:172px minmax(0,1fr);
+      gap:clamp(1.2rem,3vw,2.4rem);
+      align-items:start;
+    }
+
+    /* --- The signature move: the journey rail (trail of stations) --- */
+    .rail{position:sticky; top:1rem;}
+    .rail ol{
+      list-style:none; margin:0; padding:0;
+      position:relative;
+    }
+    .rail ol::before{
+      content:""; position:absolute; top:22px; bottom:22px; right:21px; width:0;
+      border-right:3px dashed var(--sand);
+    }
+    .rail li{position:relative; margin:0; padding:0 0 1.9rem;}
+    .rail li:last-child{padding-bottom:0;}
+    .station{
+      display:flex; align-items:center; gap:.7rem;
+      background:none; border:0; padding:.15rem; width:100%; text-align:right;
+      color:var(--ink-soft); font-size:.98rem; font-weight:600; border-radius:10px;
+    }
+    .station .dot{
+      flex:none; width:44px; height:44px; border-radius:50%;
+      display:grid; place-items:center; font-weight:800; font-size:1.05rem;
+      background:var(--surface); color:var(--teal);
+      border:3px solid var(--sand);
+      position:relative; z-index:1;
+      transition:background .25s, border-color .25s, color .25s;
+    }
+    .station[aria-current="step"]{color:var(--teal-700); font-weight:800;}
+    .station[aria-current="step"] .dot{border-color:var(--coral); color:var(--coral-700); box-shadow:0 0 0 5px var(--coral-50);}
+    .station.done .dot{background:var(--teal); border-color:var(--teal); color:#fff;}
+    .station:not(:disabled):hover .dot{border-color:var(--teal);}
+    .station:disabled{cursor:default; color:#7C8A91;}
+    .station .lbl small{display:block; font-weight:400; font-size:.8rem; color:#6B7A82;}
+
+    /* Mobile stepper */
+    .stepper{display:none;}
+
+    @media (max-width:899px){
+      .app{grid-template-columns:minmax(0,1fr); padding-top:1rem;}
+      .rail{display:none;}
+      .stepper{
+        display:flex; align-items:center; justify-content:center; gap:.35rem;
+        margin:0 0 1.1rem; padding:.6rem .8rem;
+        background:var(--surface); border:1px solid var(--line); border-radius:999px;
+        box-shadow:var(--shadow-sm);
+        position:sticky; top:.5rem; z-index:50;
+      }
+      .stepper .s-dot{
+        width:30px; height:30px; border-radius:50%; flex:none;
+        display:grid; place-items:center; font-size:.85rem; font-weight:800;
+        background:var(--cream-2); color:var(--ink-soft); border:2px solid var(--sand);
+      }
+      .stepper .s-dot.done{background:var(--teal); border-color:var(--teal); color:#fff;}
+      .stepper .s-dot.now{border-color:var(--coral); color:var(--coral-700); background:var(--coral-50);}
+      .stepper .s-line{width:14px; border-top:2px dashed var(--sand); flex:none;}
+      .stepper .s-name{margin-inline-start:.55rem; font-size:.95rem; font-weight:700; color:var(--teal-700); white-space:nowrap;}
+    }
+
+    /* ===== Screens ===== */
+    .screen{display:none;}
+    .screen.active{display:block; animation:rise .45s ease both;}
+    @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+
+    .stage-head{margin-bottom:1.2rem;}
+    .stage-head .eyebrow{
+      display:inline-flex; align-items:center; gap:.5rem;
+      color:var(--coral-700); font-weight:800; font-size:.95rem; letter-spacing:.02em;
+    }
+    .stage-head h2{
+      font-family:var(--font-display); font-weight:900;
+      font-size:clamp(1.7rem, 4.5vw, 2.4rem); color:var(--teal-700);
+      margin:.25rem 0 .4rem;
+    }
+    .stage-head .meta-chips{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.35rem;}
+    .chip{
+      display:inline-flex; align-items:center; gap:.35rem;
+      background:var(--teal-50); color:var(--teal-700);
+      border:1px solid #D2E4E3; border-radius:999px;
+      padding:.22rem .8rem; font-size:.92rem; font-weight:700;
+    }
+    .chip.warm{background:var(--coral-50); color:var(--coral-700); border-color:#EFD6CA;}
+
+    .card{
+      background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+      padding:clamp(1.1rem,3vw,1.6rem); margin:1rem 0; box-shadow:var(--shadow-sm);
+    }
+    .card h3{font-size:1.18rem; color:var(--teal-700); margin-bottom:.5rem; font-weight:800;}
+    .card p{margin:.4rem 0;}
+    .card ul, .card ol{margin:.5rem 0; padding-inline-start:1.4rem;}
+    .card li{margin:.45rem 0;}
+    .note{color:var(--ink-soft); font-size:.95rem;}
+
+    .callout{
+      border-radius:var(--radius-sm); padding:.9rem 1.1rem; margin:.9rem 0;
+      border-right:5px solid var(--teal); background:var(--teal-50);
+    }
+    .callout.warm{border-right-color:var(--coral); background:var(--coral-50);}
+    .callout.good{border-right-color:var(--ok); background:var(--ok-50);}
+
+    /* Concept reveal */
+    .concept{
+      text-align:center; padding:clamp(1.6rem,5vw,2.8rem) 1.2rem;
+      background:
+        radial-gradient(70% 90% at 50% 0%, rgba(199,91,57,.07), transparent 70%),
+        var(--surface);
+    }
+    .concept .he{
+      font-family:var(--font-display); font-weight:900; color:var(--teal-700);
+      font-size:clamp(1.9rem, 6vw, 3rem); line-height:1.2;
+    }
+    .concept .en{
+      direction:ltr; unicode-bidi:isolate; display:block;
+      font-size:clamp(1rem, 3vw, 1.35rem); color:var(--coral-700); font-weight:700;
+      margin-top:.5rem; letter-spacing:.01em;
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+      min-height:48px; padding:.65rem 1.6rem;
+      border-radius:999px; border:2px solid transparent;
+      font-size:1.05rem; font-weight:800; text-decoration:none;
+      transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn-primary{background:var(--teal); color:#fff;}
+    .btn-primary:hover{background:var(--teal-700); box-shadow:var(--shadow-md);}
+    .btn-secondary{background:var(--surface); color:var(--teal-700); border-color:var(--teal);}
+    .btn-secondary:hover{background:var(--teal-50);}
+    .btn-warm{background:var(--coral); color:#fff;}
+    .btn-warm:hover{background:var(--coral-700);}
+    .btn:disabled{opacity:.45; cursor:not-allowed; box-shadow:none;}
+    .btn-row{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.1rem; align-items:center;}
+    .btn-back{
+      background:none; border:0; color:var(--ink-soft); font-size:.95rem; font-weight:700;
+      text-decoration:underline; text-underline-offset:3px; padding:.4rem .2rem; min-height:44px;
+    }
+    .btn-back:hover{color:var(--teal-700);}
+
+    /* Model links */
+    .model-links{display:flex; flex-wrap:wrap; gap:.6rem; margin:.6rem 0 .2rem;}
+    .model-links a{
+      display:inline-flex; align-items:center; min-height:44px; padding:.35rem 1.1rem;
+      background:var(--surface); border:2px solid var(--teal); border-radius:999px;
+      color:var(--teal-700); font-weight:800; text-decoration:none; font-size:1rem;
+    }
+    .model-links a:hover{background:var(--teal-50);}
+
+    /* Prompt cards */
+    .prompt-card{border-right:5px solid var(--coral);}
+    .prompt-card .p-head{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; justify-content:space-between;}
+    .prompt-card h4{font-size:1.05rem; color:var(--coral-700); font-weight:800;}
+    .prompt-text{
+      margin:.7rem 0 0; padding:.9rem 1rem;
+      background:var(--cream); border:1px dashed var(--sand); border-radius:var(--radius-sm);
+      white-space:pre-wrap; word-break:break-word;
+      font-family:var(--font-body); font-size:.98rem; color:var(--ink);
+    }
+    .copy-btn{
+      display:inline-flex; align-items:center; gap:.4rem;
+      min-height:44px; padding:.4rem 1.1rem;
+      background:var(--teal); color:#fff; border:0; border-radius:999px;
+      font-size:.95rem; font-weight:800;
+    }
+    .copy-btn:hover{background:var(--teal-700);}
+    .copy-btn.copied{background:var(--ok);}
+
+    /* Form elements */
+    label{font-weight:700; color:var(--teal-700); display:block; margin-bottom:.35rem;}
+    .field{margin:1rem 0;}
+    input[type="text"], textarea, select{
+      width:100%; padding:.7rem .9rem;
+      border:2px solid var(--sand); border-radius:var(--radius-sm);
+      background:var(--surface);
+    }
+    input[type="text"]:focus, textarea:focus, select:focus{border-color:var(--teal);}
+    textarea{min-height:120px; resize:vertical; line-height:1.65;}
+    .hint{font-size:.88rem; color:var(--ink-soft); margin-top:.3rem;}
+
+    /* Choice checkboxes (discussion questions) */
+    .q-list{list-style:none; margin:.8rem 0 0; padding:0;}
+    .q-list li{margin:.55rem 0;}
+    .q-check{
+      display:flex; gap:.7rem; align-items:flex-start;
+      background:var(--surface); border:2px solid var(--line); border-radius:var(--radius-sm);
+      padding:.75rem .9rem; cursor:pointer; transition:border-color .15s, background .15s;
+    }
+    .q-check:hover{border-color:var(--teal);}
+    .q-check input{
+      flex:none; width:24px; height:24px; margin-top:.15rem; accent-color:var(--teal); cursor:pointer;
+    }
+    .q-check.checked{border-color:var(--teal); background:var(--teal-50);}
+    .must{
+      border-right:5px solid var(--coral);
+    }
+    .must .must-tag{
+      display:inline-block; background:var(--coral); color:#fff; border-radius:999px;
+      font-size:.8rem; font-weight:800; padding:.1rem .7rem; margin-bottom:.4rem;
+    }
+    .must p.q{font-size:1.15rem; font-weight:800; color:var(--teal-700);}
+
+    /* Scenario cards */
+    .scenario-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.9rem; margin-top:1rem;}
+    .scenario-pick{
+      text-align:right; background:var(--surface); border:2px solid var(--line);
+      border-radius:var(--radius); padding:1.1rem 1.15rem; min-height:44px;
+      display:flex; flex-direction:column; gap:.4rem;
+      transition:border-color .15s, box-shadow .2s;
+    }
+    .scenario-pick:hover{border-color:var(--coral); box-shadow:var(--shadow-md);}
+    .scenario-pick .s-tag{
+      align-self:flex-start;
+      background:var(--coral-50); color:var(--coral-700); border:1px solid #EFD6CA;
+      border-radius:999px; padding:.1rem .7rem; font-size:.85rem; font-weight:800;
+    }
+    .scenario-pick .s-title{font-weight:800; color:var(--teal-700); font-size:1.08rem;}
+    .scenario-pick .s-teaser{font-size:.93rem; color:var(--ink-soft);}
+
+    .keyq{
+      background:var(--coral-50); border:1px solid #EFD6CA; border-radius:var(--radius-sm);
+      padding:.9rem 1.1rem; margin:.9rem 0; font-weight:700; color:var(--ink);
+    }
+    .keyq .kq-tag{color:var(--coral-700); font-weight:800; display:block; margin-bottom:.2rem; font-size:.9rem;}
+
+    /* Format chips */
+    .fmt-grid{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.6rem;}
+    .fmt{
+      border:2px solid var(--sand); background:var(--surface); border-radius:999px;
+      padding:.45rem 1rem; min-height:44px; font-size:.97rem; font-weight:700; color:var(--ink);
+    }
+    .fmt:hover{border-color:var(--teal);}
+    .fmt[aria-pressed="true"]{background:var(--teal); border-color:var(--teal); color:#fff;}
+
+    /* Product components checklist */
+    .comp-list{counter-reset:comp; list-style:none; margin:.8rem 0 0; padding:0;}
+    .comp-list li{margin:.5rem 0;}
+    .comp{
+      display:flex; gap:.7rem; align-items:flex-start;
+      background:var(--surface); border:2px solid var(--line); border-radius:var(--radius-sm);
+      padding:.65rem .85rem; cursor:pointer;
+    }
+    .comp input{flex:none; width:24px; height:24px; margin-top:.1rem; accent-color:var(--ok); cursor:pointer;}
+    .comp.checked{border-color:var(--ok); background:var(--ok-50);}
+
+    /* Status line under submit buttons */
+    .status{margin-top:.7rem; font-weight:700; display:none;}
+    .status.show{display:block;}
+    .status.err{color:#9E2B12;}
+    .status.ok{color:var(--ok);}
+
+    /* Sent confirmation */
+    .sent-box{
+      display:flex; align-items:center; gap:.7rem;
+      background:var(--ok-50); border:1px solid #CBE3D1; border-radius:var(--radius-sm);
+      padding:.8rem 1rem; margin-top:.8rem; font-weight:700; color:var(--ok);
+    }
+
+    /* Rubric dialog */
+    dialog{
+      border:0; border-radius:var(--radius); padding:0;
+      width:min(94vw, 860px); box-shadow:var(--shadow-md);
+    }
+    dialog::backdrop{background:rgba(30,43,51,.55);}
+    .dlg-head{
+      display:flex; justify-content:space-between; align-items:center; gap:1rem;
+      background:var(--teal); color:#fff; padding:1rem 1.3rem;
+    }
+    .dlg-head h3{font-size:1.15rem; color:#fff;}
+    .dlg-close{
+      background:rgba(255,255,255,.15); color:#fff; border:0; border-radius:999px;
+      width:44px; height:44px; font-size:1.3rem; font-weight:800;
+    }
+    .dlg-close:hover{background:rgba(255,255,255,.3);}
+    .dlg-body{padding:1.1rem 1.3rem 1.4rem; background:var(--surface);}
+    .table-scroll-wrapper{
+      width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; margin:.6rem 0 0; border-radius:8px;
+    }
+    table.rubric{width:100%; border-collapse:collapse; font-size:.95rem; min-width:560px;}
+    table.rubric th, table.rubric td{border:1px solid var(--line); padding:.6rem .7rem; text-align:right; vertical-align:top;}
+    table.rubric th{background:var(--teal-50); color:var(--teal-700);}
+    table.rubric td:first-child{font-weight:800; color:var(--coral-700); white-space:nowrap;}
+
+    /* Footer */
+    .site-footer{
+      border-top:1px solid var(--line); margin-top:2rem;
+      padding:1.4rem clamp(1rem,4vw,2.2rem) 2.2rem;
+      max-width:var(--maxw); margin-inline:auto;
+      color:var(--ink-soft); font-size:.92rem;
+      display:flex; flex-wrap:wrap; gap:.7rem 1.6rem; align-items:center; justify-content:space-between;
+    }
+    .site-footer a{color:var(--teal-700); font-weight:700;}
+    .reset-btn{
+      background:none; border:0; color:#7C8A91; font-size:.85rem; text-decoration:underline;
+      text-underline-offset:3px; padding:.5rem .2rem; min-height:44px;
+    }
+    .reset-btn:hover{color:var(--coral-700);}
+
+    /* Thanks screen */
+    .thanks{
+      text-align:center; padding:clamp(1.8rem,6vw,3rem) 1.4rem;
+    }
+    .thanks .big{font-size:clamp(2.4rem,8vw,3.6rem); line-height:1;}
+    .thanks h2{
+      font-family:var(--font-display); font-weight:900; color:var(--teal-700);
+      font-size:clamp(1.6rem,5vw,2.3rem); margin:.6rem 0;
+    }
+    .quote{
+      max-width:640px; margin:1.2rem auto 0; text-align:right;
+      background:var(--cream); border-right:5px solid var(--coral);
+      border-radius:var(--radius-sm); padding:1rem 1.2rem; font-size:1.02rem;
+    }
+    .quote .who{display:block; margin-top:.5rem; color:var(--ink-soft); font-size:.9rem; font-weight:700;}
+
+    .thanks .btn-row{justify-content:center;}
+
+    /* Reduced motion must win over every animation — accessibility requirement */
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important;
+        scroll-behavior:auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <h1>מסע למידה: אזור ההתפתחות המקורב</h1>
+    <p class="kicker">מפגש 4 · סגל הפקולטה למקצועות הבריאות · הקריה האקדמית אונו</p>
+  </div>
+</header>
+
+<div class="app">
+
+  <!-- Journey rail (desktop) -->
+  <nav class="rail" aria-label="שלבי המסע">
+    <ol id="rail-list">
+      <li><button class="station" data-go="0"><span class="dot" aria-hidden="true">🚩</span><span class="lbl">פתיחה<small>נקודת הזינוק</small></span></button></li>
+      <li><button class="station" data-go="1"><span class="dot" aria-hidden="true">1</span><span class="lbl">מפגש עם המושג<small>עבודה אישית</small></span></button></li>
+      <li><button class="station" data-go="2"><span class="dot" aria-hidden="true">2</span><span class="lbl">שיחה בזוגות<small>הסבר הדדי ודיון</small></span></button></li>
+      <li><button class="station" data-go="3"><span class="dot" aria-hidden="true">3</span><span class="lbl">ניתוח תרחיש<small>הידע ככלי פרשני</small></span></button></li>
+      <li><button class="station" data-go="4"><span class="dot" aria-hidden="true">4</span><span class="lbl">תוצר אישי<small>ההגשה שלך</small></span></button></li>
+      <li><button class="station" data-go="5"><span class="dot" aria-hidden="true">🏁</span><span class="lbl">סיום<small>נתראה בדיון</small></span></button></li>
+    </ol>
+  </nav>
+
+  <div>
+    <!-- Mobile stepper -->
+    <div class="stepper" aria-hidden="true" id="stepper"></div>
+
+    <main id="main-content">
+
+      <!-- ============ Screen 0: Welcome ============ -->
+      <section class="screen" id="screen-0" aria-labelledby="h-s0">
+        <div class="stage-head">
+          <span class="eyebrow">🚩 נקודת הזינוק</span>
+          <h2 id="h-s0" tabindex="-1">היום לומדים אחרת</h2>
+        </div>
+
+        <div class="card">
+          <p>ברוכות הבאות וברוכים הבאים!</p>
+          <p>
+            במפגש הזה לא תקבלו הרצאה על בינה מלאכותית — תחוו אותה.
+            האפליקציה הזו תוביל אתכן, שלב אחר שלב, בתהליך למידה שבו הבינה המלאכותית
+            אינה מקצרת דרך ואינה כותבת במקומכן, אלא משמשת מסגרת שמובילה למידה,
+            שיחה, עיבוד אישי — והפקת תוצר שיש בו אתכן.
+          </p>
+          <ul>
+            <li><strong>בשלב הראשון עובדים לבד</strong> — כל אחת בקצב שלה.</li>
+            <li>בהמשך: שיחה בזוגות, ניתוח תרחיש מהתחום, ותוצר אישי שנשלח למרצה.</li>
+            <li>ההנחיות המלאות מופיעות בכל שלב — אין צורך לשאול, רק להתקדם.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="field">
+            <label for="name-input">איך קוראים לך? (שם פרטי ושם משפחה)</label>
+            <input type="text" id="name-input" autocomplete="name" maxlength="80"
+                   placeholder="השם יצורף לתוצרים שתשלחי למרצה">
+            <p class="hint">השם נשמר במכשיר שלך ומצורף רק להגשות שלך.</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="start-btn">יוצאים לדרך ←</button>
+          </div>
+          <p class="status err" id="name-status" role="alert"></p>
+        </div>
+      </section>
+
+      <!-- ============ Screen 1: The concept (Part D) ============ -->
+      <section class="screen" id="screen-1" aria-labelledby="h-s1">
+        <div class="stage-head">
+          <span class="eyebrow">תחנה 1 · חלק ד׳ בתכנית המפגש</span>
+          <h2 id="h-s1" tabindex="-1">מפגש עם המושג</h2>
+          <div class="meta-chips">
+            <span class="chip">⏱ כ־15–20 דקות</span>
+            <span class="chip warm">🧍 עבודה אישית</span>
+          </div>
+        </div>
+
+        <div class="card concept">
+          <p class="he">אזור ההתפתחות המקורב</p>
+          <span class="en">Zone of Proximal Development (ZPD)</span>
+        </div>
+
+        <div class="callout warm">
+          <strong>שימי לב:</strong> בכוונה לא מצורף כאן שום הסבר.
+          את הידע תבני בעצמך, בשיחה עם מודל שפה — זו בדיוק הנקודה של המפגש.
+        </div>
+
+        <div class="card">
+          <h3>1. פתחי מודל שפה שאת מרגישה איתו בנוח</h3>
+          <div class="model-links">
+            <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT ↗</a>
+            <a href="https://claude.ai" target="_blank" rel="noopener">Claude ↗</a>
+            <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini ↗</a>
+          </div>
+          <p class="note">או כל מודל אחר שאת רגילה אליו. עבדי בטלפון בשני חלונות, או במחשב אם נוח לך יותר.</p>
+        </div>
+
+        <div class="card prompt-card">
+          <div class="p-head">
+            <h4>2. הסבר ראשון — הכירי את התיאוריה</h4>
+            <button class="copy-btn" data-copy="p1">📋 העתקת הפרומפט</button>
+          </div>
+          <pre class="prompt-text" id="p1">אני אשת סגל בפקולטה למקצועות הבריאות, ואני לומדת עכשיו מושג חדש. הסבירי לי בעברית פשוטה וברורה את המושג "אזור ההתפתחות המקורב" (Zone of Proximal Development — ZPD) של לב ויגוצקי: מה הרעיון המרכזי, מה זה "פיגום" (Scaffolding), ומה ההבדל בין מה שלומד מסוגל לעשות לבד לבין מה שהוא מסוגל לעשות בעזרת תיווך. סכמי בסוף בשלוש נקודות מפתח.</pre>
+        </div>
+
+        <div class="card prompt-card">
+          <div class="p-head">
+            <h4>3. דוגמה יישומית ממקצועות הבריאות</h4>
+            <button class="copy-btn" data-copy="p2">📋 העתקת הפרומפט</button>
+          </div>
+          <pre class="prompt-text" id="p2">עכשיו תני לי דוגמה יישומית קצרה של אזור ההתפתחות המקורב מהכשרת סטודנטים במקצועות הבריאות — למשל בהדרכה קלינית, בסימולציה או בשיעור מעשי. הראי בדוגמה: מה הסטודנט כבר עושה לבד, מה הוא מצליח לעשות רק בעזרת תיווך, ואיזה פיגום מקדם אותו לעצמאות.</pre>
+        </div>
+
+        <div class="card prompt-card">
+          <div class="p-head">
+            <h4>4. שיחה על דוגמה מהעולם שלך</h4>
+            <button class="copy-btn" data-copy="p3">📋 העתקת הפרומפט</button>
+          </div>
+          <pre class="prompt-text" id="p3">אני רוצה לבחון דוגמה מהעבודה שלי. אתאר לך מצב מההוראה או מההדרכה שלי, ואת תעזרי לי לנתח אותו במושגי אזור ההתפתחות המקורב: מה הלומד כבר מסוגל לעשות לבד, מה רק בעזרת תיווך, ואיזה פיגום מתאים. שאלי אותי שאלה אחת בכל פעם, וחכי לתשובה שלי לפני שתמשיכי. הנה המצב: [תארי כאן בכמה משפטים מצב אמיתי מהעבודה שלך]</pre>
+        </div>
+
+        <div class="card prompt-card">
+          <div class="p-head">
+            <h4>5. בדיקת הבנה</h4>
+            <button class="copy-btn" data-copy="p4">📋 העתקת הפרומפט</button>
+          </div>
+          <pre class="prompt-text" id="p4">שאלי אותי שלוש שאלות הבנה קצרות על אזור ההתפתחות המקורב, אחת בכל פעם. אחרי כל תשובה שלי תני לי משוב קצר — מה היה מדויק ומה כדאי לחדד. בסוף סכמי: מה כבר הבנתי היטב, ומה עוד כדאי לי להשלים.</pre>
+        </div>
+
+        <div class="card">
+          <h3>6. עצרי רגע — עיבוד אישי</h3>
+          <p class="note">נשמר רק במכשיר שלך. לא נשלח לאף אחד — זה שלך.</p>
+          <div class="field">
+            <label for="understood">מה הבנתי, במילים שלי?</label>
+            <textarea id="understood" maxlength="2000" placeholder="נסחי במילים שלך את מה שהבנת עד כה..."></textarea>
+          </div>
+          <div class="field">
+            <label for="unclear">מה עדיין לא ברור לי?</label>
+            <textarea id="unclear" maxlength="2000" placeholder="שאלות פתוחות, נקודות מעורפלות..."></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" data-go-next="2">סיימת את העבודה האישית? לתחנה 2 ←</button>
+            <button class="btn-back" data-go="0">→ חזרה לפתיחה</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Screen 2: Pair talk (Part E) ============ -->
+      <section class="screen" id="screen-2" aria-labelledby="h-s2">
+        <div class="stage-head">
+          <span class="eyebrow">תחנה 2 · חלק ה׳ בתכנית המפגש</span>
+          <h2 id="h-s2" tabindex="-1">שיחה בזוגות</h2>
+          <div class="meta-chips">
+            <span class="chip">⏱ כ־20–25 דקות</span>
+            <span class="chip warm">👥 בזוגות</span>
+          </div>
+        </div>
+
+        <!-- Gate -->
+        <div id="pair-gate">
+          <div class="card">
+            <h3>לפני שממשיכים — מוצאים בת זוג</h3>
+            <p>
+              מצאו בת או בן זוג לשיחה, ותפסו לכן פינה נוחה בחדר.
+              אם מספר המשתתפות בחדר אינו זוגי — שלישייה אחת היא פתרון מצוין.
+            </p>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="pair-2">מצאתי בת זוג ✓</button>
+              <button class="btn btn-secondary" id="pair-3">אנחנו שלישייה ✓</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discussion -->
+        <div id="pair-talk" hidden>
+          <div class="callout">
+            <strong>איך משוחחים?</strong>
+            הסבירו זו לזו, במילים שלכן, מה הבנתן.
+            ההסבר ההדדי הוא לא נימוס — הוא מעגן את הלמידה בזיכרון ומוודא שבאמת נרכש ידע.
+          </div>
+
+          <div class="card must">
+            <span class="must-tag">שאלת חובה</span>
+            <p class="q">מה הרעיון המרכזי במושג אזור ההתפתחות המקורב?</p>
+            <p class="note">התחילו ממנה — כל אחת מנסחת תשובה במילים שלה.</p>
+          </div>
+
+          <div class="card">
+            <h3>עכשיו בחרו יחד לפחות שלוש שאלות, ושוחחו עליהן</h3>
+            <ul class="q-list" id="q-list">
+              <li><label class="q-check"><input type="checkbox" data-q="0"><span>איפה בהכשרות שלכן אתן מזהות את המעבר בין ״הסטודנט לא יודע״ לבין ״הסטודנט נמצא באזור שבו הוא זקוק לפיגום מתאים״? נסו לחשוב על דוגמה אחת.</span></label></li>
+              <li><label class="q-check"><input type="checkbox" data-q="1"><span>איך אפשר לזהות בהתנסות קלינית מה סטודנט כבר מסוגל לעשות לבד?</span></label></li>
+              <li><label class="q-check"><input type="checkbox" data-q="2"><span>איך אפשר לזהות מה הוא מסוגל לעשות רק בעזרת הנחיה?</span></label></li>
+              <li><label class="q-check"><input type="checkbox" data-q="3"><span>באילו מצבים אני כמרצה נוטה לתת יותר מדי עזרה, ובאילו מצבים אני נוטה לתת פחות מדי עזרה?</span></label></li>
+              <li><label class="q-check"><input type="checkbox" data-q="4"><span>מה בתיאוריה הזו רלוונטי להכשרת אנשי מקצועות הבריאות?</span></label></li>
+              <li><label class="q-check"><input type="checkbox" data-q="5"><span>איפה התיאוריה הזו מתנגשת עם פרקטיקות הוראה או הערכה קיימות?</span></label></li>
+              <li><label class="q-check"><input type="checkbox" data-q="6"><span>איזו דוגמה מהעולם המקצועי שלכן ממחישה את הרעיון?</span></label></li>
+            </ul>
+            <p class="hint" id="q-counter" aria-live="polite">נבחרו 0 שאלות (צריך לפחות 3)</p>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="to-scenarios" disabled>סיימנו לשוחח — לניתוח תרחיש ←</button>
+              <button class="btn-back" data-go="1">→ חזרה לתחנה 1</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Screen 3: Scenario analysis (Part F) ============ -->
+      <section class="screen" id="screen-3" aria-labelledby="h-s3">
+        <div class="stage-head">
+          <span class="eyebrow">תחנה 3 · חלק ו׳ בתכנית המפגש</span>
+          <h2 id="h-s3" tabindex="-1">ניתוח תרחיש לאור המושג</h2>
+          <div class="meta-chips">
+            <span class="chip">⏱ כ־20 דקות</span>
+            <span class="chip warm">👥 בזוגות</span>
+          </div>
+        </div>
+
+        <!-- Picker -->
+        <div id="scenario-picker">
+          <div class="callout">
+            עכשיו נבדוק אם הידע שלמדתן יכול לשמש <strong>ככלי פרשני</strong>:
+            לא רק ״האם הבנתי את המושג?״, אלא ״האם אני יודעת להשתמש בו כדי לקרוא מצב,
+            לנתח אותו, ולהציע פעולה פדגוגית מתאימה?״
+          </div>
+          <h3 class="sr-only">בחירת תרחיש</h3>
+          <p><strong>בחרו יחד תרחיש אחד מתוך השלושה:</strong></p>
+          <div class="scenario-grid" id="scenario-grid"></div>
+        </div>
+
+        <!-- Detail -->
+        <div id="scenario-detail" hidden>
+          <div class="card">
+            <span class="s-tag" id="sd-tag"></span>
+            <h3 id="sd-title"></h3>
+            <p id="sd-body"></p>
+            <div class="keyq">
+              <span class="kq-tag">שאלת המפתח</span>
+              <span id="sd-keyq"></span>
+            </div>
+            <div class="btn-row">
+              <button class="btn-back" id="sd-change">→ בחירת תרחיש אחר</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>משימת הניתוח — עברו יחד על השאלות</h3>
+            <ol>
+              <li>
+                <strong>מה הסטודנטית / הסטודנט כבר מסוגלים לעשות באופן עצמאי?</strong><br>
+                <span class="note">אילו יכולות כבר נראות מבוססות?</span>
+              </li>
+              <li>
+                <strong>מה הם עדיין אינם מסוגלים לעשות לבד, אבל מצליחים לעשות בעזרת תיווך?</strong><br>
+                <span class="note">כאן נמצא אזור ההתפתחות המקורב.</span>
+              </li>
+              <li>
+                <strong>איזה סוג של תיווך עוזר להם?</strong><br>
+                <span class="note">שאלות מכוונות, הדגמה, פירוק המשימה לשלבים, משוב בזמן אמת, תבנית חשיבה, צ׳ק ליסט, חשיבה בקול, סימולציה חוזרת או כלי אחר.</span>
+              </li>
+              <li>
+                <strong>מה יהיה פיגום טוב — ומה יהיה פיגום מוגזם?</strong><br>
+                <span class="note">כלומר: מתי התמיכה מקדמת עצמאות, ומתי היא עלולה לעשות את העבודה במקום הלומד?</span>
+              </li>
+              <li>
+                <strong>כיצד המרצה או המדריכה הקלינית יכולה להעריך שהתרחשה למידה?</strong><br>
+                <span class="note">מה ייחשב עדות לכך שהסטודנט התקדם, ולא רק ביצע את הפעולה בעזרת המדריכה?</span>
+              </li>
+              <li>
+                <strong>כיצד בינה מלאכותית יכולה לסייע בתהליך הזה בלי להחליף את הלמידה?</strong><br>
+                <span class="note">למשל: יצירת שאלות תרגול, סימולציות, רפלקציה, תבניות לחשיבה, משוב ראשוני או הכנה לשיחה עם מדריכה.</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>לסיום הדיון — פסקה אחת ממך</h3>
+            <div class="field">
+              <label for="takeaway">מה הדבר המרכזי שאת לוקחת איתך מהדיון שקיימת?</label>
+              <textarea id="takeaway" maxlength="4000" placeholder="פסקה קצרה, במילים שלך..."></textarea>
+              <p class="hint">הפסקה נשלחת למרצה, וממשיכים אוטומטית לתחנה האחרונה.</p>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-warm" id="send-takeaway">שליחה למרצה והמשך ←</button>
+              <button class="btn-back" data-go="2">→ חזרה לשאלות הדיון</button>
+            </div>
+            <p class="status" id="takeaway-status" role="alert"></p>
+            <div class="btn-row" id="takeaway-fallback" hidden>
+              <button class="btn btn-secondary" data-go-next="4">ממשיכות בכל זאת (בלי שליחה) ←</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Screen 4: Personal product (Part G) ============ -->
+      <section class="screen" id="screen-4" aria-labelledby="h-s4">
+        <div class="stage-head">
+          <span class="eyebrow">תחנה 4 · חלק ז׳ בתכנית המפגש</span>
+          <h2 id="h-s4" tabindex="-1">התוצר האישי שלך</h2>
+          <div class="meta-chips">
+            <span class="chip">⏱ כ־20–25 דקות</span>
+            <span class="chip warm">🧍 עבודה אישית</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>המשימה</h3>
+          <p>
+            בחרי מקרה אמיתי מהחיים המקצועיים שלך — או אחד מהתרחישים מהתחנה הקודמת —
+            ונתחי אותו לאור מושג אזור ההתפתחות המקורב.
+            הסבירי מה הלומד כבר מסוגל לעשות לבד, מה הוא מסוגל לעשות בעזרת תיווך,
+            איזה פיגום יכול לקדם אותו, וכיצד ניתן יהיה לדעת שהתרחשה למידה.
+          </p>
+          <div class="callout warm">
+            מותר להיעזר בבינה מלאכותית בניסוח, בארגון ובחידוד —
+            אבל אסור שהתוצר יהיה גנרי. הוא חייב לכלול את <strong>ה״אני״ שלך</strong>:
+            ניסיון, שיפוט, הקשר, דילמה או תובנה שלא יכולים להופיע בתשובה גנרית.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>מה התוצר צריך לכלול? (סמני לעצמך תוך כדי עבודה)</h3>
+          <ol class="comp-list" id="comp-list">
+            <li><label class="comp"><input type="checkbox" data-c="0"><span>תיאור קצר של המקרה או התרחיש.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="1"><span>הסבר קצר של מושג אזור ההתפתחות המקורב, כפי שהוא בא לידי ביטוי במקרה.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="2"><span>זיהוי של מה שהלומד כבר מסוגל לעשות באופן עצמאי.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="3"><span>זיהוי של מה שהלומד עדיין אינו מסוגל לעשות לבד, אך יכול לעשות בעזרת תיווך.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="4"><span>הצעה לפיגום מתאים: שאלה מכוונת, הדגמה, פירוק לשלבים, תבנית חשיבה, משוב, סימולציה חוזרת, שימוש בבינה מלאכותית או כל כלי אחר.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="5"><span>הבחנה בין פיגום שמקדם עצמאות לבין עזרה מוגזמת שעלולה לעשות את העבודה במקום הלומד.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="6"><span>הסבר קצר כיצד ניתן יהיה לדעת שהתרחשה למידה או התקדמות.</span></label></li>
+            <li><label class="comp"><input type="checkbox" data-c="7"><span>חיבור אישי/מקצועי: מה המקרה הזה מלמד אותי כמרצה, כמדריכה קלינית או כאשת סגל?</span></label></li>
+          </ol>
+          <div class="btn-row">
+            <button class="btn btn-secondary" id="open-rubric">🔍 לפי מה יוערך התוצר? צפייה במחוון</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>באיזה פורמט תגישי?</h3>
+          <p class="note">הבחירה בפורמט היא חלק מהרעיון — בחרי את אופן הביטוי שמתאים לך, כל עוד איכות החשיבה נשמרת.</p>
+          <div class="fmt-grid" id="fmt-grid" role="group" aria-label="בחירת פורמט הגשה"></div>
+        </div>
+
+        <div class="card">
+          <h3>ההגשה</h3>
+          <div class="field">
+            <label for="p-name">שם</label>
+            <input type="text" id="p-name" maxlength="80" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="product">התוצר שלך (או החלק הכתוב שלו)</label>
+            <textarea id="product" maxlength="12000" placeholder="הדביקי או כתבי כאן את התוצר..." rows="9"></textarea>
+          </div>
+          <div class="field">
+            <label for="p-link">קישור (לא חובה)</label>
+            <input type="text" id="p-link" maxlength="500" placeholder="אם התוצר נמצא במסמך או במצגת ברשת — הדביקי קישור" dir="ltr">
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-warm" id="send-product">📤 שליחת התוצר למרצה</button>
+          </div>
+          <p class="status" id="product-status" role="alert"></p>
+          <div class="sent-box" id="product-sent" hidden>✓ התוצר נשלח למרצה. אפשר לשלוח שוב גרסה מעודכנת אם תרצי.</div>
+        </div>
+
+        <div class="card">
+          <h3>יצרת קובץ? (הקלטה קולית, שקף, תמונה, מפת מושגים)</h3>
+          <p><strong>שלחי אותו בקבוצת הוואטסאפ של ההשתלמות, עם השם שלך בהודעה.</strong></p>
+          <div class="callout">
+            <strong>למה ההגשה מפוצלת? שקיפות מלאה:</strong>
+            אפליקציה כמו זו שאתן משתמשות בה עכשיו נבנתה בחינם, בערב אחד, בשיטת וייב קודינג.
+            קליטת קבצים ישירות לענן דורשת תשתית אחסון בתשלום — ולכן טקסט נאסף כאן,
+            וקבצים עוברים בוואטסאפ. גם מגבלה טכנית יכולה להיות שיעור בתכנון למידה. 🙂
+          </div>
+          <div class="callout good">
+            <strong>ואיך תעשו את זה עם הסטודנטים שלכן?</strong>
+            אם תבנו תהליך דומה לקורס שלכן, תוכלו להנחות הגשת קבצים
+            לתיקיית דרייב משותפת, למטלה במודל (מערכת הקורסים המוסדית) או לטופס Google Forms —
+            כל אחד מאלה קולט קבצים מצוין ובחינם.
+          </div>
+          <div class="btn-row">
+            <button class="btn-back" data-go="3">→ חזרה לניתוח התרחיש</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Screen 5: Thanks ============ -->
+      <section class="screen" id="screen-5" aria-labelledby="h-s5">
+        <div class="card thanks">
+          <p class="big" aria-hidden="true">🏁</p>
+          <h2 id="h-s5" tabindex="-1">הגעת לסוף המסע — כל הכבוד!</h2>
+          <p>התוצר שלך אצל המרצה. עוד מעט ניפגש כולן לדיון המסכם: מה קרה כאן בעצם, מבחינה פדגוגית?</p>
+          <blockquote class="quote">
+            ״לא חייבים לבחור בין איסור על שימוש בבינה מלאכותית לבין ויתור על למידה.
+            יש אפשרות שלישית: לעצב תהליך שבו הבינה המלאכותית היא חלק ממסלול הלמידה,
+            אבל הלומד עדיין חייב לחשוב, לפרש, לבחור, לשוחח, להתחבר לניסיון שלו —
+            ולהיות נוכח בתוך התוצר.״
+            <span class="who">— מתוך סיכום המפגש</span>
+          </blockquote>
+          <div class="btn-row">
+            <button class="btn btn-secondary" data-go="4">→ חזרה לתוצר (לשליחת גרסה מעודכנת)</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <span>
+    נבנה בשיטת וייב קודינג עבור מפגש 4 · הוראה והערכה בעידן הבינה המלאכותית ·
+    <a href="accessibility.html">הצהרת נגישות</a>
+  </span>
+  <button class="reset-btn" id="reset-btn">התחלה מחדש (איפוס ההתקדמות שלי)</button>
+</footer>
+
+<!-- Rubric dialog -->
+<dialog id="rubric-dialog" aria-labelledby="rubric-title">
+  <div class="dlg-head">
+    <h3 id="rubric-title">המחוון: לפי מה יוערך התוצר?</h3>
+    <button class="dlg-close" id="rubric-close" aria-label="סגירת המחוון">✕</button>
+  </div>
+  <div class="dlg-body">
+    <p class="note">כך תדעי מראש מהם הקריטריונים — ותוכלי להכין את התוצר בהתאם.</p>
+    <div class="table-scroll-wrapper" tabindex="0" role="region" aria-label="טבלת המחוון (ניתנת לגלילה)">
+      <table class="rubric">
+        <thead>
+          <tr><th scope="col">ממד</th><th scope="col">שאלה מנחה</th><th scope="col">רמת ביצוע גבוהה</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>הבנת המושג</td><td>האם התוצר מראה הבנה של אזור ההתפתחות המקורב?</td><td>ההסבר מבחין בין ביצוע עצמאי, ביצוע בעזרת תיווך, ומה שנמצא מעבר ליכולת הנוכחית</td></tr>
+          <tr><td>יישום על מקרה</td><td>האם נעשה שימוש במושג כדי לנתח תרחיש?</td><td>יש קשר ברור בין התיאוריה לבין הניתוח של הסטודנט / המטופל / ההדרכה</td></tr>
+          <tr><td>זיהוי פיגום</td><td>האם הוצעה תמיכה מתאימה ללומד?</td><td>הפיגום מותאם לקושי, מקדם עצמאות ואינו עושה את העבודה במקום הלומד</td></tr>
+          <tr><td>חיבור אישי/מקצועי</td><td>האם המשתתפת הכניסה את עצמה לתוצר?</td><td>מופיע מקרה אמיתי, דילמה, ניסיון או תובנה מתוך ההוראה / ההדרכה</td></tr>
+          <tr><td>עומק חשיבה</td><td>האם יש מעבר מתיאור לפרשנות?</td><td>התוצר מציג שיקול דעת, מורכבות או שינוי בהבנה</td></tr>
+          <tr><td>שימוש בבינה מלאכותית</td><td>האם היא שימשה ללמידה ולא להחלפתה?</td><td>ניכר שהתוצר עבר עיבוד אנושי ואינו גנרי</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</dialog>
+
+<noscript>
+  <div class="card" role="alert">
+    האפליקציה דורשת הפעלת JavaScript בדפדפן. אנא הפעילו אותו ורעננו את הדף.
+  </div>
+</noscript>
+
+<script>
+/* ================= App state & flow ================= */
+(function(){
+  'use strict';
+
+  var KEY = 'zpd-journey-v1';
+  var scenarios = [
+    {
+      tag: 'תרחיש 1 · סיעוד',
+      title: 'סטודנטית בסימולציית קבלת מטופל',
+      teaser: 'יודעת למדוד סימנים חיוניים ומזהה מצוקה — אבל מתקשה לתעדף.',
+      body: 'סטודנטית לסיעוד משתתפת בסימולציה של קבלת מטופל מבוגר עם קוצר נשימה. היא יודעת למדוד סימנים חיוניים, יודעת לשאול חלק מהשאלות הנדרשות, ומזהה שהמטופל במצוקה. עם זאת, היא מתקשה לתעדף את הפעולות, לא בטוחה מתי לקרוא לעזרה, ומדלגת על הסבר מרגיע למטופל.',
+      keyq: 'נתחו את תיאור המקרה לאור מושג אזור ההתפתחות המקורב: איזה ידע, מיומנויות ויכולות כבר רכשה הסטודנטית? מה נמצא באזור ההתפתחות המקורב שלה ודורש תיווך? וכיצד הייתן פועלות כדי לספק לה פיגומים שיכניסו אותה לאזור ההתפתחות המקורב — מבלי לתת לה את התשובות?'
+    },
+    {
+      tag: 'תרחיש 2 · פיזיותרפיה / ריפוי בעיסוק',
+      title: 'סטודנט בתכנון התערבות שיקומית',
+      teaser: 'אוסף מידע ומזהה קשיים — אבל מתקשה לבנות תכנית מותאמת אישית.',
+      body: 'סטודנט בהתנסות קלינית פוגש מטופלת לאחר אירוע מוחי קל. הוא יודע לאסוף מידע בסיסי, מזהה קשיים בתפקוד היומיומי, ומציע תרגילים כלליים לשיפור תנועה. עם זאת, הוא מתקשה לתרגם את המידע לתכנית התערבות מותאמת אישית, מתקשה להציב מטרות מדידות, ולא תמיד מבחין בין מה שהמטופלת רוצה להשיג לבין מה שהוא חושב שצריך לתרגל.',
+      keyq: 'איזה פיגום פדגוגי יכול לעזור לסטודנט לעבור מידע כללי לתכנון מקצועי מותאם?'
+    },
+    {
+      tag: 'תרחיש 3 · קלינאות תקשורת / מקצוע טיפולי',
+      title: 'סטודנטית במפגש עם ילד והורה',
+      teaser: 'מתארת התנהגויות רלוונטיות — אבל מתקשה לנהל הכול בו־זמנית.',
+      body: 'סטודנטית צופה במפגש עם ילד צעיר שמגיע עם הורה להערכה ראשונית. היא מזהה חלק ממאפייני התקשורת של הילד, שמה לב לקושי בשיתוף פעולה, ומצליחה לתאר כמה התנהגויות רלוונטיות. עם זאת, היא מתקשה לנהל בו־זמנית את ההקשבה להורה, ההתבוננות בילד, ניסוח שאלות המשך, והבחנה בין תיאור התנהגות לבין פרשנות מקצועית.',
+      keyq: 'כיצד ניתן לזהות את המקום שבו הסטודנטית אינה זקוקה לתשובה מהמדריכה, אלא לשאלות שיארגנו את החשיבה שלה?'
+    }
+  ];
+  var formats = ['טקסט קצר','טבלה','מפת מושגים','שקף אחד','הקלטה קולית קצרה','תרחיש וניתוח','דיאלוג בין מרצה לסטודנטית','רפלקציה אישית','תכנית פיגום קצרה לסטודנט','מחוון קצר לזיהוי בהתנסות קלינית'];
+
+  var defaults = {
+    name:'', stage:0, maxStage:0, pair:null, qs:[],
+    understood:'', unclear:'',
+    scenario:null, takeaway:'', takeawaySent:false,
+    checks:[], format:null, product:'', link:'', productSent:false
+  };
+  var state;
+  try { state = Object.assign({}, defaults, JSON.parse(localStorage.getItem(KEY) || '{}')); }
+  catch(e){ state = Object.assign({}, defaults); }
+
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  function $(id){ return document.getElementById(id); }
+
+  var stageNames = ['פתיחה','מפגש עם המושג','שיחה בזוגות','ניתוח תרחיש','תוצר אישי','סיום'];
+
+  /* ---------- render ---------- */
+  function render(focusHeading){
+    // screens
+    for (var i=0;i<=5;i++){
+      var sc = $('screen-'+i);
+      if (i===state.stage){ sc.classList.add('active'); } else { sc.classList.remove('active'); }
+    }
+    // rail
+    var stations = document.querySelectorAll('.rail .station');
+    stations.forEach(function(st){
+      var n = parseInt(st.getAttribute('data-go'),10);
+      st.classList.toggle('done', n < state.stage || (n===5 && state.stage===5));
+      if (n===state.stage){ st.setAttribute('aria-current','step'); } else { st.removeAttribute('aria-current'); }
+      st.disabled = n > state.maxStage;
+      var dot = st.querySelector('.dot');
+      if (n>=1 && n<=4){ dot.textContent = (n < state.stage) ? '✓' : String(n); }
+    });
+    // mobile stepper
+    var stp = $('stepper'); stp.innerHTML='';
+    for (var k=0;k<=5;k++){
+      var d = document.createElement('span');
+      d.className = 's-dot' + (k<state.stage ? ' done' : '') + (k===state.stage ? ' now' : '');
+      d.textContent = (k===0) ? '🚩' : (k===5 ? '🏁' : (k<state.stage ? '✓' : k));
+      stp.appendChild(d);
+      if (k<5){ var ln=document.createElement('span'); ln.className='s-line'; stp.appendChild(ln); }
+    }
+    var nm = document.createElement('span');
+    nm.className='s-name'; nm.textContent = stageNames[state.stage];
+    stp.appendChild(nm);
+
+    // stage 2 substates
+    $('pair-gate').hidden = !!state.pair;
+    $('pair-talk').hidden = !state.pair;
+    document.querySelectorAll('#q-list input').forEach(function(cb){
+      var qi = parseInt(cb.getAttribute('data-q'),10);
+      cb.checked = state.qs.indexOf(qi) !== -1;
+      cb.closest('.q-check').classList.toggle('checked', cb.checked);
+    });
+    var count = state.qs.length;
+    $('q-counter').textContent = 'נבחרו ' + count + ' שאלות' + (count>=3 ? ' ✓' : ' (צריך לפחות 3)');
+    $('to-scenarios').disabled = count < 3;
+
+    // stage 3 substates
+    $('scenario-picker').hidden = state.scenario !== null;
+    $('scenario-detail').hidden = state.scenario === null;
+    if (state.scenario !== null){
+      var s = scenarios[state.scenario];
+      $('sd-tag').textContent = s.tag;
+      $('sd-title').textContent = s.title;
+      $('sd-body').textContent = s.body;
+      $('sd-keyq').textContent = s.keyq;
+    }
+    $('takeaway').value = state.takeaway;
+
+    // stage 4
+    document.querySelectorAll('#comp-list input').forEach(function(cb){
+      var ci = parseInt(cb.getAttribute('data-c'),10);
+      cb.checked = state.checks.indexOf(ci) !== -1;
+      cb.closest('.comp').classList.toggle('checked', cb.checked);
+    });
+    document.querySelectorAll('#fmt-grid .fmt').forEach(function(b,bi){
+      b.setAttribute('aria-pressed', state.format===formats[bi] ? 'true' : 'false');
+    });
+    $('p-name').value = state.name;
+    $('product').value = state.product;
+    $('p-link').value = state.link;
+    $('product-sent').hidden = !state.productSent;
+
+    // welcome
+    $('name-input').value = state.name;
+    $('understood').value = state.understood;
+    $('unclear').value = state.unclear;
+
+    if (focusHeading){
+      window.scrollTo(0,0);
+      var h = $('h-s'+state.stage);
+      if (h){ h.focus({preventScroll:true}); }
+    }
+  }
+
+  function go(n, focus){
+    state.stage = n;
+    if (n > state.maxStage) state.maxStage = n;
+    save();
+    render(focus !== false);
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener('click', function(ev){
+    var t = ev.target.closest('[data-go]');
+    if (t && !t.disabled){ go(parseInt(t.getAttribute('data-go'),10)); return; }
+    var tn = ev.target.closest('[data-go-next]');
+    if (tn && !tn.disabled){ go(parseInt(tn.getAttribute('data-go-next'),10)); return; }
+  });
+
+  $('start-btn').addEventListener('click', function(){
+    var v = $('name-input').value.trim();
+    var st = $('name-status');
+    if (v.length < 2){
+      st.textContent = 'כדי להתחיל, כתבי בבקשה את שמך (לפחות 2 תווים).';
+      st.classList.add('show');
+      $('name-input').focus();
+      return;
+    }
+    st.classList.remove('show');
+    state.name = v.slice(0,80);
+    save();
+    go(1);
+  });
+
+  ['understood','unclear'].forEach(function(id){
+    $(id).addEventListener('input', function(){ state[id] = this.value; save(); });
+  });
+  $('name-input').addEventListener('input', function(){ state.name = this.value.slice(0,80); save(); });
+
+  $('pair-2').addEventListener('click', function(){ state.pair = 2; save(); render(false); });
+  $('pair-3').addEventListener('click', function(){ state.pair = 3; save(); render(false); });
+
+  document.querySelectorAll('#q-list input').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var qi = parseInt(this.getAttribute('data-q'),10);
+      var ix = state.qs.indexOf(qi);
+      if (this.checked && ix===-1) state.qs.push(qi);
+      if (!this.checked && ix!==-1) state.qs.splice(ix,1);
+      save(); render(false);
+    });
+  });
+  $('to-scenarios').addEventListener('click', function(){ go(3); });
+
+  // scenario cards
+  var grid = $('scenario-grid');
+  scenarios.forEach(function(s, si){
+    var b = document.createElement('button');
+    b.className = 'scenario-pick';
+    b.innerHTML = '<span class="s-tag"></span><span class="s-title"></span><span class="s-teaser"></span>';
+    b.querySelector('.s-tag').textContent = s.tag;
+    b.querySelector('.s-title').textContent = s.title;
+    b.querySelector('.s-teaser').textContent = s.teaser;
+    b.addEventListener('click', function(){
+      state.scenario = si; save(); render(false);
+      $('sd-title').focus({preventScroll:false});
+    });
+    grid.appendChild(b);
+  });
+  $('sd-title').setAttribute('tabindex','-1');
+  $('sd-change').addEventListener('click', function(){ state.scenario = null; save(); render(false); });
+
+  $('takeaway').addEventListener('input', function(){ state.takeaway = this.value; save(); });
+
+  // format chips
+  var fmtGrid = $('fmt-grid');
+  formats.forEach(function(f){
+    var b = document.createElement('button');
+    b.className = 'fmt';
+    b.type = 'button';
+    b.textContent = f;
+    b.setAttribute('aria-pressed','false');
+    b.addEventListener('click', function(){
+      state.format = (state.format === f) ? null : f;
+      save(); render(false);
+    });
+    fmtGrid.appendChild(b);
+  });
+
+  document.querySelectorAll('#comp-list input').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var ci = parseInt(this.getAttribute('data-c'),10);
+      var ix = state.checks.indexOf(ci);
+      if (this.checked && ix===-1) state.checks.push(ci);
+      if (!this.checked && ix!==-1) state.checks.splice(ix,1);
+      save(); render(false);
+    });
+  });
+  $('p-name').addEventListener('input', function(){ state.name = this.value.slice(0,80); save(); });
+  $('product').addEventListener('input', function(){ state.product = this.value; save(); });
+  $('p-link').addEventListener('input', function(){ state.link = this.value.slice(0,500); save(); });
+
+  /* ---------- copy buttons ---------- */
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var txt = $(btn.getAttribute('data-copy')).textContent.trim();
+      function done(){
+        btn.classList.add('copied');
+        var orig = btn.textContent;
+        btn.textContent = '✓ הועתק! עברי למודל השפה';
+        setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = orig; }, 2600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done).catch(function(){ legacyCopy(txt); done(); });
+      } else { legacyCopy(txt); done(); }
+    });
+  });
+  function legacyCopy(txt){
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.setAttribute('readonly','');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  /* ---------- rubric dialog ---------- */
+  var dlg = $('rubric-dialog');
+  $('open-rubric').addEventListener('click', function(){ dlg.showModal(); $('rubric-close').focus(); });
+  $('rubric-close').addEventListener('click', function(){ dlg.close(); });
+  dlg.addEventListener('click', function(ev){
+    if (ev.target === dlg) dlg.close();
+  });
+
+  /* ---------- submissions ---------- */
+  function setStatus(el, msg, kind){
+    el.textContent = msg;
+    el.className = 'status show ' + kind;
+  }
+
+  $('send-takeaway').addEventListener('click', function(){
+    var btn = this;
+    var st = $('takeaway-status');
+    var txt = state.takeaway.trim();
+    if (txt.length < 10){
+      setStatus(st, 'כתבי בבקשה פסקה קצרה (כמה משפטים) לפני השליחה.', 'err');
+      $('takeaway').focus();
+      return;
+    }
+    if (!window.zpdSend){
+      setStatus(st, 'אין כרגע חיבור לרשת. אפשר לנסות שוב, או להמשיך בלי שליחה.', 'err');
+      $('takeaway-fallback').hidden = false;
+      return;
+    }
+    btn.disabled = true;
+    setStatus(st, 'שולחת...', 'ok');
+    window.zpdSend('zpd_takeaways', {
+      name: state.name || 'ללא שם',
+      scenario: state.scenario !== null ? scenarios[state.scenario].tag : '',
+      text: txt.slice(0,4000)
+    }).then(function(){
+      state.takeawaySent = true; save();
+      setStatus(st, 'נשלח! ממשיכות לתחנה האחרונה...', 'ok');
+      setTimeout(function(){ go(4); }, 900);
+    }).catch(function(){
+      setStatus(st, 'השליחה לא הצליחה. נסי שוב בעוד רגע — או המשיכי בלי שליחה.', 'err');
+      $('takeaway-fallback').hidden = false;
+    }).finally(function(){ btn.disabled = false; });
+  });
+
+  $('send-product').addEventListener('click', function(){
+    var btn = this;
+    var st = $('product-status');
+    var name = $('p-name').value.trim();
+    var txt = $('product').value.trim();
+    var link = $('p-link').value.trim();
+    if (name.length < 2){ setStatus(st, 'כתבי בבקשה את שמך.', 'err'); $('p-name').focus(); return; }
+    if (!state.format){ setStatus(st, 'בחרי בבקשה פורמט הגשה (למעלה).', 'err'); return; }
+    if (txt.length < 10){ setStatus(st, 'הדביקי או כתבי את התוצר (או תיאור קצר שלו, אם הוא קובץ שנשלח בוואטסאפ).', 'err'); $('product').focus(); return; }
+    if (link && !/^https?:\/\//i.test(link)){ setStatus(st, 'הקישור צריך להתחיל ב-https (או להישאר ריק).', 'err'); $('p-link').focus(); return; }
+    if (!window.zpdSend){
+      setStatus(st, 'אין כרגע חיבור לרשת. נסי שוב בעוד רגע, או שלחי את הטקסט בוואטסאפ.', 'err');
+      return;
+    }
+    state.name = name; save();
+    btn.disabled = true;
+    setStatus(st, 'שולחת...', 'ok');
+    var data = {
+      name: name,
+      format: state.format.slice(0,60),
+      text: txt.slice(0,12000)
+    };
+    if (link) data.link = link;
+    window.zpdSend('zpd_products', data).then(function(){
+      state.productSent = true; save();
+      setStatus(st, 'התוצר נשלח למרצה! 🎉', 'ok');
+      setTimeout(function(){ go(5); }, 900);
+    }).catch(function(){
+      setStatus(st, 'השליחה לא הצליחה. נסי שוב — ואם זה חוזר, שלחי את הטקסט בוואטסאפ.', 'err');
+    }).finally(function(){ btn.disabled = false; });
+  });
+
+  /* ---------- reset ---------- */
+  $('reset-btn').addEventListener('click', function(){
+    if (confirm('לאפס את כל ההתקדמות שלך באפליקציה? (מה שכבר נשלח למרצה — נשאר אצלו)')){
+      try { localStorage.removeItem(KEY); } catch(e){}
+      state = Object.assign({}, defaults);
+      go(0);
+    }
+  });
+
+  render(false);
+})();
+</script>
+
+<!-- Firestore submissions (loads independently; the app works even if this fails) -->
+<script type="module">
+  try {
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+    const { getFirestore, collection, addDoc, serverTimestamp } =
+      await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyC2tCO7o0QODtHVa4PfKCt4eBX7XEtLR9I",
+      authDomain: "ono-health-gallery.firebaseapp.com",
+      projectId: "ono-health-gallery",
+      storageBucket: "ono-health-gallery.firebasestorage.app",
+      messagingSenderId: "315488346817",
+      appId: "1:315488346817:web:1833113a8e8d951694ea40"
+    };
+
+    const app = initializeApp(FIREBASE_CONFIG);
+    const db = getFirestore(app);
+
+    window.zpdSend = function(colName, data){
+      const payload = Object.assign({}, data, { createdAt: serverTimestamp() });
+      return addDoc(collection(db, colName), payload);
+    };
+  } catch (e) {
+    /* offline or blocked — the app keeps working, sends will show a friendly error */
+  }
+</script>
+</body>
+</html>
